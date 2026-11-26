@@ -1,242 +1,1183 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GRPS Team Workspace</title><style>
-:root{--blue:#075a9c;--deep:#12385b;--orange:#f58220;--gold:#f6b619;--ink:#203443;--muted:#657784;--paper:#fff;--wash:#f4f7f9;--line:#dfe6eb;--sky:#eaf4fb;--peach:#fff3e9}
-*{box-sizing:border-box}body{margin:0;background:var(--wash);font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
-header{background:#fff;border-bottom:1px solid var(--line);padding:12px 28px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
-.identity{display:flex;align-items:center;gap:18px}.logo{width:126px;height:auto;display:block}.brandline{border-left:1px solid var(--line);padding-left:18px}.brandline b{display:block;color:var(--deep);font-size:16px}.brandline span{display:block;color:var(--muted);font-size:11px;margin-top:2px}
-.wrap{max-width:1180px;margin:30px auto;padding:0 20px}.top{display:flex;justify-content:space-between;gap:18px;align-items:flex-end;margin-bottom:20px}h1{color:var(--deep);font-size:32px;letter-spacing:-.02em;margin:0}h2{color:var(--deep);font-size:18px;margin:0 0 9px}.muted{color:var(--muted);font-size:13px;line-height:1.5}
-.btn{border:0;border-radius:999px;padding:10px 15px;font-weight:800;cursor:pointer}.primary{background:var(--blue);color:#fff}.ghost{background:#edf2f5;color:var(--deep)}.orange{background:var(--orange);color:#fff}
-.intro{background:linear-gradient(110deg,var(--deep),var(--blue));color:#fff;border-radius:18px;padding:24px 26px;margin-bottom:16px;position:relative;overflow:hidden}.intro:after{content:"";position:absolute;width:160px;height:160px;border-radius:50%;background:#ffffff0d;right:-35px;top:-70px}.intro h1{color:#fff;font-size:30px}.intro p{max-width:700px;margin:7px 0 0;color:#eaf3f9;font-size:13px;line-height:1.5}
-.board{display:grid;gap:11px}.head{display:grid;grid-template-columns:1.05fr 1.35fr 1.35fr 1.2fr;padding:0 17px;color:var(--muted);font-size:11px;text-transform:uppercase;font-weight:900;letter-spacing:.08em}.brow{display:grid;grid-template-columns:1.05fr 1.35fr 1.35fr 1.2fr;background:#fff;border:1px solid var(--line);border-radius:13px;cursor:pointer;box-shadow:0 1px 3px #00000008;transition:.15s}.brow:hover{transform:translateY(-1px);box-shadow:0 5px 14px #1d46680d;border-color:#bfd0dc}.brow>div{padding:15px 17px}.pname{font-weight:900;color:var(--deep);font-size:15px}.tags{margin-top:7px}.tag{display:inline-block;font-size:9px;font-weight:800;background:var(--sky);color:var(--blue);border-radius:999px;padding:4px 7px;margin:2px 2px 2px 0}.cell{font-size:12px;line-height:1.5}.brow>div:last-child{background:#fbfcfd;border-radius:0 13px 13px 0}
-.workspace{display:grid;grid-template-columns:minmax(0,1fr) 255px;gap:15px}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:12px}.section{border-top:1px solid var(--line);padding-top:15px;margin-top:15px}.label{font-size:11px;text-transform:uppercase;letter-spacing:.09em;font-weight:900;color:var(--orange);margin-bottom:6px}.synthesis{font-size:17px;line-height:1.5;color:var(--deep);font-weight:750}
-.evidence{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.ev{background:var(--wash);border-radius:10px;padding:12px;font-size:13px;line-height:1.45}.ev b{display:block;color:var(--deep);font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
-.moves{width:100%;border-collapse:collapse}.moves th,.moves td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);font-size:11px;vertical-align:top}.moves th{color:var(--muted);font-size:11px;text-transform:uppercase}
-.history{border-left:2px solid #d8e2e9;padding-left:14px;margin-left:4px}.he{position:relative;margin:0 0 17px;font-size:11px;line-height:1.4}.he:before{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:var(--orange);left:-19px;top:3px}.he b{display:block;color:var(--deep)}
-.help{background:var(--sky);border-radius:10px;padding:12px;font-size:14px;line-height:1.5;margin-top:8px}.question{background:var(--peach);border-radius:9px;padding:11px;margin:7px 0;font-size:12px}.input{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px;font:inherit;margin:4px 0 9px}
-.modal{position:fixed;inset:0;background:#102d4266;display:flex;align-items:center;justify-content:center;padding:15px;z-index:10}.modalbox{background:#fff;width:min(680px,100%);max-height:90vh;overflow:auto;border-radius:16px;padding:22px}.hidden{display:none}.row{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:13px}
-.today{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.todayitem{background:#fff;border:1px solid var(--line);border-radius:13px;padding:16px;font-size:14px;line-height:1.5}.todayitem b{color:var(--deep);font-size:15px}textarea{min-height:75px}
-@media(max-width:800px){header{padding:10px 15px}.logo{width:100px}.brandline{display:none}.head{display:none}.brow{grid-template-columns:1fr}.brow>div{padding:8px 14px}.brow>div:last-child{border-radius:0 0 13px 13px}.workspace{grid-template-columns:1fr}.evidence,.today{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}}
-.phasebar{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:13px 0 2px}.phase{padding:9px;border-radius:9px;background:#eef3f6;color:var(--muted);font-size:10px;font-weight:900;text-align:center}.phase.on{background:var(--deep);color:#fff}.phase.done{background:#e8f2e8;color:#315b34}.resource{border:1px solid var(--line);border-radius:10px;padding:11px;margin:8px 0;font-size:11px;line-height:1.45}.micro{font-size:10px;color:var(--muted)}.closegrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.statusnote{background:#f7f9fb;border-radius:9px;padding:10px;font-size:11px;line-height:1.45}@media(max-width:650px){.phasebar,.closegrid{grid-template-columns:1fr 1fr}}
-.obsgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.obsbox{border:1px solid var(--line);border-radius:10px;padding:11px}.obsbox b{display:block;color:var(--deep);font-size:10px;margin-bottom:4px}.checkrow{display:flex;gap:7px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);font-size:11px}.checkrow input{margin-top:2px}.signal{padding:10px;border-radius:9px;background:#f6f8fa;margin:7px 0;font-size:11px;line-height:1.45}.signal strong{color:var(--deep)}.compare{background:#eef6fb;border-left:4px solid var(--blue);padding:11px;border-radius:8px;font-size:11px;line-height:1.5}.stageaction{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}@media(max-width:650px){.obsgrid{grid-template-columns:1fr}}
-.decision{border-radius:10px;padding:12px;margin:9px 0;font-size:12px;line-height:1.5}.decision.hold{background:#fff3df}.decision.go{background:#edf6ed}.decision.rethink{background:#fbecec}.planstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.planbox{border:1px solid var(--line);border-radius:10px;padding:11px;font-size:11px;line-height:1.45}.planbox b{display:block;color:var(--deep);font-size:11px;text-transform:uppercase;margin-bottom:4px}
-.carry{background:linear-gradient(120deg,#12385b,#075a9c);color:#fff;border-radius:13px;padding:16px;margin-bottom:12px}.carry .label{color:#ffc28f}.carrygrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.carrybox{background:#ffffff12;border:1px solid #ffffff22;border-radius:9px;padding:10px;font-size:11px;line-height:1.4}.carrybox b{display:block;font-size:11px;text-transform:uppercase;margin-bottom:4px;color:#ddecf6}.pulse{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.pulsebox{border:1px solid var(--line);border-radius:10px;padding:11px;font-size:11px;line-height:1.45}.pulsebox b{display:block;color:var(--deep);margin-bottom:4px}.smallbtn{padding:7px 10px;font-size:10px}.empty{padding:13px;border:1px dashed #cbd6dd;border-radius:9px;color:var(--muted);font-size:11px}@media(max-width:650px){.carrygrid,.pulse{grid-template-columns:1fr}}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Team Workboard · GRPS</title>
+<meta name="description" content="GRPS Team Workboard: run the monthly data review cycle, keep next steps moving, and finish the monthly form in one place.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{
+  --blue:#075a9c;--deep:#12385b;--orange:#f58220;--orange-ink:#a84a00;--gold:#f6b619;
+  --ink:#1f2f3c;--muted:#5a6b78;--line:#dde5eb;--soft:#f5f7f9;--paper:#fff;
+  --sky:#eaf3fa;--peach:#fff2e6;--green:#2f7a45;--green-bg:#e9f5ec;--red:#a33a2a;--red-bg:#fbebe8;
+  --radius:14px;--shadow:0 1px 2px #12385b0d,0 4px 14px #12385b0a;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--soft);color:var(--ink);font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--blue)}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{color:var(--deep);line-height:1.2;margin:0}
+h1{font-size:clamp(28px,3.4vw,38px);letter-spacing:-.015em}
+h2{font-size:23px}
+h3{font-size:19px}
+p{margin:0 0 10px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
-.nowcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0}.nowcard h3{margin:0 0 5px;color:var(--deep);font-size:14px}.linkbtn{display:inline-block;border:1px solid #c9d7e1;border-radius:999px;padding:7px 10px;margin:4px 4px 0 0;font-size:10px;font-weight:800;color:var(--blue);text-decoration:none;background:#fff}.sourcehint{background:#f5f8fa;border-radius:9px;padding:10px;font-size:11px;line-height:1.45;margin:7px 0}.timely{border-left:4px solid var(--orange)}.later{opacity:.78}
-.attn{border-left:4px solid var(--orange);background:#fffaf5}.ready{border-left:4px solid #4d8a54}.waiting{border-left:4px solid #9aa9b3}.why{font-size:10px;color:var(--muted);margin-top:4px}.backupbox{background:#f6f8fa;border-radius:10px;padding:12px;font-size:11px;line-height:1.5}.decisionline{font-size:11px;font-weight:800;color:var(--deep);margin-top:5px}
-/* v16: legible typography and a true landing page */
-body{font-size:17px;line-height:1.55}header{gap:20px;flex-wrap:wrap;padding:17px max(22px,calc((100vw - 1320px)/2))}.logo{width:148px}.brandline b{font-size:20px}.brandline span{font-size:15px}.wrap{max-width:1320px;margin:30px auto;padding:0 28px}h1{font-size:clamp(30px,3vw,43px)}h2{font-size:25px}.muted,.intro p,.cell,.ev,.todayitem,.resource,.sourcehint,.statusnote,.signal,.compare,.decision,.planbox,.pulsebox,.carrybox,.backupbox,.why,.he,.moves th,.moves td,.nowcard,.question,.checkrow,.obsbox,.obsbox b,.micro,.tag,.linkbtn,.phase,.label{font-size:15px;line-height:1.55}.label{font-size:13px}.micro{font-size:14px}.tag{font-size:13px;padding:5px 10px}.btn{font-size:15px;padding:12px 19px;min-height:44px}.smallbtn{font-size:14px}.input{font-size:17px;padding:13px}.card{padding:25px}.synthesis{font-size:20px}.carry{padding:23px}.carrybox b,.planbox b,.ev b{font-size:14px}.todayitem b{font-size:19px}.linkbtn{font-size:14px}.phase{font-size:14px}.help{font-size:16px}.nowcard h3{font-size:19px}.intro p{font-size:17px}.intro h1{font-size:40px}.intro{padding:35px}.home-hero{background:#12385b;color:#fff;border-radius:20px;padding:36px 42px;display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:center;margin-bottom:24px}.home-hero h1{color:#fff;font-size:clamp(32px,3.5vw,48px);line-height:1.13;margin:9px 0 14px}.home-hero p{color:#e5eef6;font-size:19px;line-height:1.5;max-width:690px;margin:0}.hero-kicker{color:#ffc387;font-size:14px;font-weight:800;letter-spacing:.07em}.hero-actions{display:grid;gap:12px}.hero-actions .btn{border-radius:12px;padding:18px;text-align:left;font-size:18px}.hero-actions .primary{background:#fff;color:#12385b}.hero-actions .orange{background:#f58220;color:#132f49}.hero-actions .ghost{background:#ffffff1e;color:#fff;border:1px solid #ffffff70}.home-section{margin:26px 0 15px}.home-section h2{font-size:27px;margin:0 0 3px}.home-overview{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 0 24px}.overview-tile{border:1px solid #dce5ec;background:#fff;border-radius:14px;padding:20px 22px}.overview-tile strong{display:block;font-size:35px;color:#12385b;line-height:1.2}.overview-tile span{font-size:16px;color:#526775}.priority-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.priority-card{background:#fff;border:1px solid #d9e3eb;border-radius:15px;padding:23px;box-shadow:0 2px 5px #122d4110;display:flex;flex-direction:column;gap:13px}.priority-card h3{font-size:23px;line-height:1.25;color:#12385b;margin:0}.priority-card p{font-size:16px;line-height:1.5;margin:0}.priority-card .next-step{background:#edf5fa;border-left:4px solid #f58220;padding:13px 15px;border-radius:7px;margin-top:auto}.priority-card .next-step b{display:block;color:#12385b;font-size:14px;margin-bottom:4px}.priority-card .btn{align-self:flex-start}.home-foot{margin-top:24px;background:#fff;border:1px solid #d9e3eb;border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px}.home-foot p{font-size:16px;margin:0}.home-foot b{color:#12385b}.home-foot .btn{white-space:nowrap}@media(max-width:850px){.home-hero{grid-template-columns:1fr;padding:27px}.priority-grid{grid-template-columns:1fr}.home-overview{grid-template-columns:repeat(3,1fr)}.home-foot{align-items:flex-start;flex-direction:column}.workspace{grid-template-columns:1fr}header{position:static}}@media(max-width:580px){.wrap{padding:0 16px}.home-overview{grid-template-columns:1fr}.home-hero{padding:23px}.home-hero h1{font-size:32px}header>div:last-child{flex-wrap:wrap}.hero-actions .btn{width:100%}}
+/* Header + navigation */
+.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.top-in{max-width:1200px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:22px}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;flex:0 0 auto}
+.brand img{width:112px;height:auto;display:block}
+.brand-txt{border-left:1px solid var(--line);padding-left:14px;line-height:1.25}
+.brand-txt b{display:block;color:var(--deep);font-size:17px}
+.brand-txt span{color:var(--muted);font-size:14px}
+.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{white-space:nowrap;text-decoration:none;color:var(--deep);font-weight:650;font-size:15px;padding:9px 13px;border-radius:9px}
+.nav a:hover{background:var(--soft)}
+.nav a[aria-current="page"]{background:var(--sky);color:var(--blue)}
+.accent{height:3px;background:linear-gradient(90deg,var(--orange) 0 33%,var(--gold) 33% 66%,var(--blue) 66%)}
 
-/* v17: clear homepage purpose and three starting choices */
-.home-welcome{background:#12385b;color:#fff;border-radius:20px;padding:42px 48px;margin-bottom:28px}.home-welcome h1{color:#fff;font-size:clamp(38px,4vw,54px);line-height:1.12;margin:10px 0 13px}.home-welcome h2{color:#fff;font-size:clamp(22px,2vw,27px);font-weight:600;margin:0 0 21px}.home-welcome p{font-size:19px;line-height:1.55;max-width:980px;margin:0 0 13px;color:#eff6fb}.home-welcome p:last-child{margin-bottom:0}.home-start h2,.home-current h2{font-size:29px;margin:0 0 17px}.start-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.start-choice{width:100%;min-height:164px;background:#fff;border:1px solid #d9e3eb;border-radius:15px;padding:25px;display:flex;gap:18px;align-items:flex-start;text-align:left;cursor:pointer;color:var(--ink);font:inherit;transition:box-shadow .15s,border-color .15s}.start-choice:hover,.start-choice:focus-visible{border-color:#075a9c;box-shadow:0 5px 16px #12385b1a}.start-choice.featured{grid-column:1/-1;background:#edf5fa;border-color:#b7d2e5;min-height:145px}.start-icon{display:flex;align-items:center;justify-content:center;flex:0 0 48px;height:48px;border-radius:12px;background:#eaf4fb;color:#075a9c;font-size:30px;font-weight:700}.featured .start-icon{background:#075a9c;color:#fff}.start-copy{display:flex;flex-direction:column;gap:8px;flex:1}.start-copy strong{font-size:23px;color:#12385b;line-height:1.25}.start-copy>span{font-size:17px;line-height:1.5}.start-arrow{color:#075a9c;font-size:25px}.process-details{margin-top:20px;background:#fff;border:1px solid #d9e3eb;border-radius:13px;padding:18px 22px}.process-details summary{cursor:pointer;color:#12385b;font-weight:800;font-size:19px}.summary-hint{font-weight:400;color:#526775;font-size:15px;margin-left:12px}.process-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:21px}.process-steps>div{background:#f4f7f9;padding:17px;border-radius:10px;display:flex;flex-direction:column;gap:5px}.process-steps b{color:#12385b;font-size:18px}.process-steps span,.process-note{font-size:16px;line-height:1.5}.process-note{margin:14px 0 0;color:#526775}.home-current{margin-top:36px;scroll-margin-top:125px}.current-heading{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:17px}.current-heading h2{margin-bottom:3px}.current-heading p{margin:0;color:#526775;font-size:17px}.current-counts{display:flex;flex-wrap:wrap;gap:9px}.current-counts span{background:#fff;border:1px solid #d9e3eb;padding:8px 12px;border-radius:999px;font-size:15px}.current-counts b{color:#12385b}.empty-priorities{grid-column:1/-1}.empty-priorities h3{margin:0;color:#12385b}.home-foot-actions{display:flex;gap:10px;flex-wrap:wrap}@media(max-width:700px){.home-welcome{padding:27px 23px}.home-welcome p{font-size:17px}.start-grid,.process-steps{grid-template-columns:1fr}.start-choice.featured{grid-column:auto}.start-choice{min-height:0;padding:19px}.start-copy strong{font-size:21px}.start-copy>span{font-size:16px}.current-heading{align-items:flex-start;flex-direction:column}.summary-hint{display:block;margin-left:0}.home-current{scroll-margin-top:20px}}
+.wrap{max-width:1200px;margin:0 auto;padding:28px 24px 70px}
+.crumb{display:inline-flex;align-items:center;gap:6px;font-size:15px;font-weight:650;color:var(--blue);text-decoration:none;margin-bottom:14px}
+.kicker{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink);margin-bottom:6px}
+.lede{color:var(--muted);font-size:18px;max-width:760px;margin-top:8px}
+.muted{color:var(--muted)}
+.small{font-size:15px}
+.pagehead{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:22px}
 
-/* Compact homepage introduction: make the work, not the banner, the focus. */
-.home-welcome{padding:24px 30px;margin-bottom:22px;border-radius:14px;background:#12385b}
-.home-welcome h1{font-size:clamp(29px,3vw,40px);line-height:1.15;margin:5px 0 8px}
-.home-welcome p{font-size:18px;line-height:1.48;max-width:850px;margin:0;color:#eff6fb}
-.home-welcome .hero-kicker{font-size:12px;letter-spacing:.06em}
-.home-start h2{font-size:26px;margin-bottom:13px}
-.start-choice{min-height:130px;padding:19px}
-.start-choice.featured{min-height:120px}
-@media(max-width:700px){.home-welcome{padding:20px}.home-welcome p{font-size:17px}.start-choice{min-height:0}}
-.startchoice{margin:16px 0}.startchoice label{display:block;font-size:16px;line-height:1.4;margin:15px 0 6px;color:var(--deep)}.startchoice label span{display:block;font-weight:400;font-size:14px;color:var(--muted);margin-top:3px}.startchoice .input{font-size:16px;line-height:1.5;padding:12px;margin-bottom:5px}.areachoices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:10px 0 16px}.startchoice .areachip{margin:0;display:flex;align-items:center;gap:8px;background:#f3f7fa;border:1px solid #d9e4eb;border-radius:10px;padding:12px;font-size:15px;cursor:pointer}.areachip input{width:19px;height:19px;accent-color:var(--blue)}.startnote{background:#eaf4fb;border-left:4px solid var(--blue);border-radius:9px;padding:13px 15px;font-size:15px;line-height:1.5;margin:14px 0}.modalbox{max-height:90vh;overflow-y:auto;width:min(760px,100%)}@media(max-width:600px){.areachoices{grid-template-columns:1fr}.modalbox{padding:20px}}
-/* Larger, consistent typography across the entire workspace. */
-body{font-size:17px;line-height:1.55}header{gap:16px;flex-wrap:wrap}.brandline b{font-size:19px}.brandline span{font-size:15px}h1{font-size:clamp(30px,3vw,39px)}h2{font-size:25px}h3{font-size:21px}.muted{font-size:16px;line-height:1.6}.btn{font-size:16px;line-height:1.35;padding:12px 18px}.label{font-size:13px}.micro,.why{font-size:14px}.tag{font-size:13px;padding:5px 9px}.resource,.statusnote,.signal,.decision,.sourcehint,.nowcard,.backupbox,.empty,.question{font-size:16px;line-height:1.55}.linkbtn{font-size:15px}.smallbtn{font-size:15px;padding:10px 13px}.ev,.todayitem,.planbox,.pulsebox,.carrybox{font-size:16px;line-height:1.55}.ev b,.planbox b,.carrybox b{font-size:13px}.moves th,.moves td,.he,.checkrow{font-size:15px}.phase{font-size:14px;padding:12px 8px}.modalbox{width:min(820px,100%)}.modalbox h2{font-size:27px}.modalbox .input{font-size:17px;line-height:1.5;padding:13px}.modalbox textarea{min-height:105px}.home-current p,.priority-card p{font-size:17px;line-height:1.55}.home-start .start-copy>span{font-size:16px;line-height:1.5}.home-start .start-copy strong{font-size:20px}.home-current h2{font-size:26px}.priority-card h3{font-size:21px}.current-counts,.current-heading p,.home-foot p{font-size:16px}.process-steps span,.process-note,.summary-hint{font-size:16px}.wrap{max-width:1240px}.meeting-list{margin:20px 0 30px}.meeting-list>h2{margin:0 0 14px}.count-pill{display:inline-block;font-size:15px;background:#eaf4fb;color:var(--deep);padding:3px 10px;border-radius:20px;vertical-align:middle}.meeting-priority{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;margin:0 0 16px;box-shadow:0 2px 7px #12385b09}.meeting-priority h3{font-size:23px;color:var(--deep);margin:0 0 18px}.meeting-details{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.meeting-detail{border:1px solid #e0e8ef;border-radius:11px;padding:16px;background:#f8fafc;min-width:0}.meeting-detail.next{background:#eff7fc;border-color:#cce2f0}.meeting-label{display:block;font-size:14px;font-weight:800;color:var(--deep);margin-bottom:8px}.meeting-detail p{font-size:17px;line-height:1.5;margin:0;overflow-wrap:anywhere}.meeting-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}@media(max-width:800px){.meeting-details{grid-template-columns:1fr}.meeting-priority{padding:18px}header>div:last-child{flex-wrap:wrap}.btn{font-size:15px}.wrap{padding:0 14px}}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:10px;border:1px solid transparent;font-weight:700;font-size:16px;cursor:pointer;text-decoration:none;line-height:1.2;text-align:center}
+.btn.primary{background:var(--blue);color:#fff}
+.btn.primary:hover{background:#064c84}
+.btn.warm{background:var(--orange);color:#1d2a35}
+.btn.warm:hover{background:#e47410}
+.btn.ghost{background:#fff;border-color:#c9d6e0;color:var(--deep)}
+.btn.ghost:hover{border-color:var(--blue)}
+.btn.quiet{background:transparent;color:var(--blue);padding:8px 10px;min-height:40px}
+.btn.quiet:hover{background:var(--sky)}
+.btn.sm{min-height:38px;padding:7px 13px;font-size:15px}
+.btn.danger{background:#fff;border-color:#e3c0b9;color:var(--red)}
+.btn:focus-visible,.nav a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.chip:focus-visible{outline:3px solid #f6b61999;outline-offset:2px}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
-/* Persistent navigation: available on every page and dialog. */
-.nav-dock{position:fixed;right:22px;bottom:22px;z-index:25;display:flex;gap:10px;filter:drop-shadow(0 3px 9px #122f4940)}
-.nav-dock button{display:flex;align-items:center;gap:8px;border:2px solid #fff;border-radius:999px;padding:13px 20px;font-size:17px;font-weight:800;min-height:52px;cursor:pointer;background:#fff;color:#12385b}
-.nav-dock .nav-home{background:#075a9c;color:white}.nav-dock button:focus-visible{outline:3px solid #f58220;outline-offset:2px}
-.modalbox{padding-bottom:74px}.wrap{padding-bottom:85px}
-@media(max-width:600px){.nav-dock{bottom:12px;right:12px;left:12px;justify-content:flex-end}.nav-dock button{font-size:16px;padding:11px 15px;min-height:48px}}
-.cal-label{display:block;color:#12385b;font-size:19px;font-weight:800;margin:22px 0 10px}.cal-list{display:grid;gap:13px}.cal-item{border:1px solid #d8e4ed;border-radius:13px;padding:17px}.cal-check{display:flex;gap:14px;cursor:pointer;align-items:flex-start}.cal-check input{width:23px;height:23px;flex:none;margin-top:4px;accent-color:#075a9c}.cal-check span{display:flex;flex-direction:column;gap:5px}.cal-check b{font-size:20px;color:#12385b}.cal-check small,.cal-check em{font-size:16px;line-height:1.45}.cal-check em{color:#526775;font-style:normal}.cal-context,.cal-links{padding:16px;background:#f1f6fa;border-radius:11px;margin-top:12px}.cal-context b,.cal-links b{display:block;font-size:17px;color:#12385b}.cal-context small{font-size:14px}.cal-availability{margin:13px 0 0 38px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}.cal-availability label{font-size:15px;font-weight:700}.cal-availability select{font-size:16px;padding:9px;border-radius:8px;border:1px solid #cbd8e2}.cal-dates{margin:17px 0;font-size:16px}.cal-dates summary{cursor:pointer;font-weight:750;color:#12385b}.cal-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}.modalbox{max-height:calc(100dvh - 35px);overflow:auto;overscroll-behavior:contain}.cal-links a{font-size:15px}@media(max-width:650px){.cal-item{padding:13px}.cal-check b{font-size:18px}.cal-availability{margin-left:0}.cal-footer{flex-direction:column}.cal-footer button{width:100%}}.resource-link-card{background:#f2f7fc;border:1px solid #d5e3ee;border-radius:14px;padding:18px 20px;margin:12px 0}.resource-link-card h3{font-size:22px;color:var(--deep);margin:0 0 8px}.resource-link-card p{font-size:17px;line-height:1.45;margin:0 0 14px}.resource-link-actions{display:flex;gap:10px;flex-wrap:wrap}.resource-link-actions a{display:inline-flex;text-decoration:none;font-size:16px;align-items:center;min-height:44px;background:white;border:1px solid #a7bfd2}.resource-link-actions a:hover{background:#e1effa;text-decoration:underline}
-/* Guided notebook: quiet paper surface, distinctive ink/bronze accents, no dashboard chrome. */
-:root{--deep:#252932;--blue:#444d60;--orange:#a77b39;--muted:#59616c;--line:#dcdedc}
-body{background:#f6f5f2;color:#252932;font-size:18px;line-height:1.58}
-header{background:#fff;border-bottom:1px solid #e2e1dc;box-shadow:none}header .brandline{color:#252932}
-.wrap{max-width:1280px;margin:auto;padding:28px 30px 100px}h1{font-size:clamp(32px,3.2vw,46px);letter-spacing:-.035em}h2{font-size:27px;letter-spacing:-.02em}.label{color:#866436;letter-spacing:.1em}
-.btn{border-radius:8px;font-size:17px;min-height:48px}.btn.primary{background:#303b4c;color:#fff}.btn.ghost{background:#fff;color:#303b4c;border:1px solid #d4d8dc}.btn.orange{background:#a77b39;color:#fff}
-.notebook-home{max-width:1100px;margin:0 auto}.notebook-intro{padding:12px 0 23px;border-bottom:1px solid #d6d8d8}.notebook-intro h1{margin:5px 0}.notebook-intro p{font-size:19px;max-width:740px;margin:5px 0;color:#555d68}
-.notebook-actions{display:grid;grid-template-columns:1.35fr 1fr;gap:12px;margin:24px 0 32px}.notebook-start{grid-row:span 2;background:#303b4c!important;color:#fff!important;text-align:left;border:0!important;padding:24px!important;border-radius:12px;min-height:210px;cursor:pointer}.notebook-start strong{display:block;font-size:28px;margin-bottom:10px}.notebook-start span{font-size:18px;line-height:1.5;display:block;max-width:420px}.notebook-action{background:#fff;border:1px solid #d7d9da;border-radius:12px;padding:17px 20px;text-align:left;cursor:pointer;min-height:98px}.notebook-action strong{display:block;font-size:21px;color:#252932}.notebook-action span{display:block;font-size:16px;color:#5a6470;margin-top:4px}
-.notebook-section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.notebook-section-head h2{margin:0}.notebook-list{background:#fff;border:1px solid #dcdedc;border-radius:12px;overflow:hidden}.notebook-entry{padding:19px 22px;border-bottom:1px solid #e4e5e3}.notebook-entry:last-child{border-bottom:0}.notebook-entry h3{margin:0 0 5px;font-size:24px}.notebook-entry p{margin:4px 0;font-size:17px}.notebook-entry .openquestion{background:#f8f7f4;border-left:3px solid #ae8248;padding:10px 14px;margin:12px 0}.notebook-entry .openquestion b{display:block;font-size:13px;letter-spacing:.06em;color:#765d39}.notebook-entry .entryfoot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.notebook-entry .entryfoot span{font-size:15px;color:#626c76}.notebook-foot{margin:20px 0;display:flex;gap:10px;flex-wrap:wrap}.notebook-process{margin-top:18px;padding:13px 0;border-top:1px solid #d9dad8}.notebook-process summary{cursor:pointer;font-size:17px;font-weight:700}
-.priority-notebook{max-width:1200px;margin:auto}.notebook-priority-head{padding-bottom:20px;border-bottom:1px solid #d7d9d8;margin-bottom:18px}.notebook-priority-head p{font-size:19px;max-width:900px}.notebook-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:17px 0 22px}.notebook-step{padding:13px 10px;border-top:4px solid #d2d5d9;background:#fff;font-weight:750;font-size:16px}.notebook-step.active{border-color:#a77b39;background:#f4ede1}.notebook-two{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,.8fr);gap:22px}.notebook-paper{background:#fff;border:1px solid #dcdedc;border-radius:10px;padding:24px;margin-bottom:15px}.notebook-paper h2{font-size:23px;margin:0 0 12px}.notebook-prompt{background:#f6f4f0;border-left:4px solid #a77b39;padding:16px 19px;margin:12px 0}.notebook-prompt b{display:block;font-size:14px;color:#7a5e36;letter-spacing:.05em;margin-bottom:4px}.notebook-prompt p{font-size:21px;font-weight:700;margin:0}.notebook-actions-row{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0}.notebook-note{padding:11px 0;border-bottom:1px solid #e7e7e5;font-size:16px}.notebook-note:last-child{border:0}.notebook-note b{display:block;color:#303b4c}.notebook-table{width:100%;border-collapse:collapse}.notebook-table th,.notebook-table td{text-align:left;border-bottom:1px solid #e4e6e6;padding:10px;font-size:15px;vertical-align:top}.notebook-sidebar{position:relative}.notebook-sidebar .notebook-paper{background:#fdfcf9}
-.nav-dock .nav-home{background:#303b4c}.modalbox{font-size:18px}.modalbox .muted{font-size:17px}
-@media(max-width:800px){.notebook-actions,.notebook-two{grid-template-columns:1fr}.notebook-start{grid-row:auto;min-height:0}.wrap{padding:18px 15px 90px}.notebook-paper{padding:17px}.notebook-steps{gap:4px}.notebook-step{font-size:13px;padding:10px 5px}}
+/* Surfaces */
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+.card+.card{margin-top:16px}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.split{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:20px;align-items:start}
+.cardhead{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px 12px;margin-bottom:12px;min-height:40px}
+aside .cardhead{flex-direction:column;align-items:flex-start}
+.cardhead h2,.cardhead h3{margin:0}
+.count{display:inline-block;min-width:26px;padding:1px 9px;border-radius:999px;background:var(--sky);color:var(--blue);font-size:14px;font-weight:800;text-align:center;margin-left:6px;vertical-align:2px}
+.empty{border:1px dashed #c8d4dd;border-radius:11px;padding:16px;color:var(--muted);font-size:16px;background:#fbfcfd}
+.note{background:var(--sky);border-radius:11px;padding:13px 15px;font-size:16px}
+.note.warm{background:var(--peach)}
+.note.ok{background:var(--green-bg)}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:800;letter-spacing:.02em;padding:4px 10px;border-radius:999px;background:var(--soft);color:var(--muted);white-space:nowrap}
+.pill.ok{background:var(--green-bg);color:var(--green)}
+.pill.warn{background:var(--peach);color:var(--orange-ink)}
+.pill.blue{background:var(--sky);color:var(--blue)}
+.pill.red{background:var(--red-bg);color:var(--red)}
 
-/* v27: restrained color, applied to the guided notebook rather than every card */
-:root{--deep:#273b59;--blue:#365c83;--orange:#dc8358;--gold:#d4a54f;--muted:#576574;--wash:#f7f7f5;--sky:#edf3fa;--peach:#fff0e8}
-body{background:#f8f8f6}
-header{border-bottom:3px solid #d7a85a}
-.notebook-intro{border-bottom:2px solid #d9e5f0;position:relative}
-.notebook-intro:before{content:"";display:block;width:54px;height:5px;border-radius:6px;background:#d9825b;margin-bottom:15px}
-.notebook-intro h1{color:#263d5d}
-.notebook-start{background:#34587d!important;color:#fff!important;box-shadow:inset 5px 0 #d9a557}
-.notebook-start:hover{background:#294b70!important}
-.notebook-action{border-color:#d4e0e9;border-top:4px solid #dca06e;background:#fff}
-.notebook-action:nth-child(3){border-top-color:#7c9ebf}
-.notebook-action:hover{background:#f3f7fc}
-.notebook-section-head h2,.notebook-entry h3{color:#2d4d70}
-.notebook-list{border-color:#d4e0e9}
-.notebook-entry .openquestion{background:#fff5ec;border-left:4px solid #d88459}
-.notebook-entry .openquestion b{color:#995638}
-.notebook-step{border-top-color:#cfdae6;background:#f8fbff;color:#44566b}
-.notebook-step.active{border-top-color:#d5845c;background:#fff1e8;color:#6e3f2c}
-.notebook-prompt{background:#fff5ec;border-left-color:#d5845c}
-.notebook-prompt b{color:#925437}
-.notebook-paper{border-color:#d5e0e9}
-.notebook-paper h2{color:#2e5073}
-.notebook-sidebar .notebook-paper{background:#f1f6fb}
-.notebook-note b{color:#30567d}
-.btn.primary{background:#345b83}
-.btn.orange{background:#c77c4f}
-.nav-dock .nav-home{background:#345b83}
-.btn:focus-visible,.notebook-action:focus-visible,.notebook-start:focus-visible{outline:3px solid #d89d46;outline-offset:3px}
-@media(max-width:700px){.notebook-intro:before{margin-bottom:10px}}
+/* Month hero */
+.month{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);overflow:hidden;margin-bottom:22px}
+.month-main{padding:28px 30px}
+.month-main h1{margin:4px 0 8px}
+.month-main p{color:var(--muted);font-size:17px;max-width:600px}
+.month-side{background:var(--deep);color:#fff;padding:26px 28px;display:flex;flex-direction:column;gap:12px}
+.month-side h3{color:#fff;font-size:15px;letter-spacing:.06em;text-transform:uppercase}
+.cycle{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.cycle li{display:flex;gap:12px;align-items:center;font-size:16px}
+.cycle .dot{flex:0 0 28px;height:28px;border-radius:50%;border:2px solid #ffffff55;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800}
+.cycle li.done .dot{background:var(--gold);border-color:var(--gold);color:var(--deep)}
+.cycle li.now .dot{border-color:var(--orange);color:#fff;background:var(--orange)}
+.cycle li span small{display:block;color:#c9dbea;font-size:14px}
 
-/* v28: confident color accents within the guided notebook layout */
-:root{--deep:#183E67;--blue:#1768A8;--orange:#EF7042;--gold:#F0B83F;--sky:#EAF4FF;--peach:#FFF0E7;--wash:#F7F9FC}
-body{background:#F7F9FC}
-header{border-bottom:3px solid #F0B83F;background:#fff}
-header .brandline b{color:#183E67}
-.notebook-intro:before{width:78px;height:7px;background:linear-gradient(90deg,#EF7042 0 55%,#F0B83F 55% 100%)}
-.notebook-intro h1{color:#183E67}
-.notebook-start{background:#1768A8!important;box-shadow:inset 7px 0 #F0B83F,0 4px 15px #1768A81f!important}
-.notebook-start:hover{background:#11578E!important}
-.notebook-action{border-top:5px solid #EF7042;background:#FFFFFF}
-.notebook-action:nth-child(3){border-top-color:#F0B83F}
-.notebook-action strong{color:#183E67}
-.notebook-action:hover{background:#EAF4FF;border-color:#BBD5ED}
-.notebook-section-head h2,.notebook-entry h3,.notebook-priority-head h1{color:#183E67}
-.notebook-entry{border-left:5px solid transparent;transition:background .15s,border-color .15s}
-.notebook-entry:hover{background:#F3F8FF;border-left-color:#1768A8}
-.notebook-entry .openquestion{background:#FFF0E7;border-left:5px solid #EF7042}
-.notebook-entry .openquestion b{color:#A34322}
-.notebook-process{border-top:2px solid #D8E8F6}
-.notebook-step{border-top:5px solid #C9DCEE;background:#F5FAFF;color:#345777}
-.notebook-step.active{border-top-color:#EF7042;background:#FFF0E7;color:#85391F}
-.notebook-prompt{background:#FFF0E7;border-left:5px solid #EF7042}
-.notebook-prompt b{color:#9A4022}
-.notebook-sidebar .notebook-paper{background:#EDF5FF;border-color:#C6DDF3}
-.btn.primary{background:#1768A8;color:#fff}
-.btn.primary:hover,.nav-dock .nav-home:hover{background:#11578E}
-.btn.orange{background:#EF7042;color:#fff}
-.btn.orange:hover{background:#CC4F25}
-.btn.ghost{color:#183E67;border-color:#BFD2E5;background:#fff}
-.btn.ghost:hover{background:#EAF4FF}
-.nav-dock .nav-home{background:#1768A8}
-.label{color:#A34322}
-.phase.on{background:#1768A8}.phase.done{background:#EAF4FF;color:#174E7A}
-.linkbtn{color:#1768A8;border-color:#BFD7EA}
-.resource-link-card{background:#F1F7FF;border-color:#C5DCF2}
-.resource-link-actions a:hover{background:#EAF4FF}
-.question{background:#FFF0E7}
-input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #F0B83F;outline-offset:3px}
-@media(prefers-reduced-motion:reduce){.notebook-entry{transition:none}}
+/* Lists */
+.list{list-style:none;margin:0;padding:0}
+.list>li{padding:12px 0;border-top:1px solid var(--line)}
+.list>li:first-child{border-top:0;padding-top:2px}
+.act{display:flex;gap:12px;align-items:flex-start}
+.act input[type=checkbox]{width:22px;height:22px;margin-top:2px;accent-color:var(--green);flex:0 0 auto}
+.act .what{font-weight:650;color:var(--deep)}
+.act.isdone .what{text-decoration:line-through;color:var(--muted)}
+.meta{font-size:14px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:650}
+.prow{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:16px 0;border-top:1px solid var(--line)}
+.prow:first-child{border-top:0;padding-top:4px}
+.prow h3 a{text-decoration:none;color:var(--deep)}
+.prow h3 a:hover{text-decoration:underline}
+.prow p{margin:4px 0 0;font-size:16px}
+.mrow{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line);font-size:16px}
+.mrow:first-child{border-top:0}
 
-/* v29: a compact, searchable return-to-work section */
-.resume-section{margin-top:28px}.resume-intro{margin:8px 0 0;color:#586879;font-size:17px;line-height:1.45}.resume-controls{margin:16px 0;display:flex;align-items:center;gap:16px;flex-wrap:wrap}.resume-controls label{font-weight:750;color:#183E67;font-size:17px}.resume-controls input{width:min(100%,390px);margin:0;background:white}.resume-list{border:1px solid #d4dfe9;border-radius:14px;overflow:hidden;background:white}.resume-row{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 25px;border-bottom:1px solid #d4dfe9}.resume-row:last-child{border-bottom:0}.resume-row:nth-child(2n){background:#f4f8ff}.resume-title{font-size:24px;font-weight:800;color:#183E67;margin-bottom:10px}.resume-detail{font-size:18px;line-height:1.45;color:#263443;margin-bottom:8px}.resume-label{display:block;color:#a34c2e;font-size:13px;letter-spacing:.07em;font-weight:850;margin-bottom:3px}.resume-next{font-size:16px;color:#526273}.resume-btn{flex-shrink:0;white-space:nowrap;min-height:50px}.resume-bottom{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;margin-top:14px}.resume-empty{padding:24px;font-size:18px}@media(max-width:700px){.resume-row{padding:19px;display:block}.resume-btn{margin-top:16px;width:100%}.resume-title{font-size:22px}}
-.modalbox{position:relative}.modal-x{position:sticky;top:0;float:right;margin:-6px -6px 0 8px;width:40px;height:40px;border-radius:50%;border:1px solid #c9d6e0;background:#fff;color:#123a5a;font-size:24px;line-height:1;cursor:pointer;z-index:2}.modal-x:hover{background:#eef4f9}</style><link rel="icon" type="image/png" href="favicon.png"></head><body><header><div class="identity"><img class="logo" src="images/grps-logo.png" alt="Grand Rapids Public Schools — GRPS my choice"><div class="brandline"><b>Team Workboard</b><span>Keep the work visible across meetings.</span></div></div><div style="display:flex;gap:8px"><button class="btn ghost" onclick="backupSettings()">Save a copy</button><button class="btn ghost" onclick="dataNow()">What data can we use now?</button><button class="btn ghost" onclick="originalTools()">GRPS Tools</button><button class="btn orange" onclick="today()">Today's Meeting</button></div></header><main class="wrap" id="app"></main><div id="modal"></div>
+/* Stage track */
+.track{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:14px 0 4px}
+.track button{border:0;background:#edf2f6;color:var(--muted);border-radius:8px;padding:10px 6px;font-size:14px;font-weight:750;cursor:pointer}
+.track button.done{background:#dcebf6;color:var(--blue)}
+.track button.on{background:var(--deep);color:#fff}
+.mini-track{display:inline-flex;gap:3px;vertical-align:middle}
+.mini-track i{width:18px;height:6px;border-radius:3px;background:#dfe7ed}
+.mini-track i.on{background:var(--blue)}
+
+/* Forms */
+label.f{display:block;font-weight:700;color:var(--deep);font-size:16px;margin:16px 0 6px}
+label.f small{display:block;font-weight:400;color:var(--muted);font-size:14px;margin-top:2px}
+.in{width:100%;border:1px solid #c9d6e0;border-radius:10px;padding:11px 13px;background:#fff;font-size:16px;line-height:1.45}
+textarea.in{min-height:96px;resize:vertical}
+textarea.in.tall{min-height:140px}
+.fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid #c9d6e0;background:#fff;border-radius:999px;padding:7px 13px;font-size:15px;font-weight:650;color:var(--deep);cursor:pointer}
+.chip:hover{border-color:var(--blue)}
+.chip.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.starters{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
+.starter{border:1px dashed #b9cad7;background:#fbfdfe;border-radius:8px;padding:5px 10px;font-size:14px;color:var(--deep);cursor:pointer}
+.starter:hover{background:var(--sky);border-style:solid}
+.avoid{font-size:14px;color:var(--red);margin:6px 0 0}
+
+/* Meeting */
+.steps{display:flex;gap:6px;margin:6px 0 22px;overflow-x:auto;scrollbar-width:none}
+.steps::-webkit-scrollbar{display:none}
+.step{flex:1 0 auto;min-width:118px;border:0;text-align:left;background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px 13px;cursor:pointer}
+.step b{display:block;font-size:15px;color:var(--deep)}
+.step span{font-size:13px;color:var(--muted)}
+.step.on{background:var(--deep);border-color:var(--deep)}
+.step.on b,.step.on span{color:#fff}
+.step.done b:before{content:"✓ ";color:var(--green)}
+.timer{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 10px 8px 16px}
+.timer .clock{font-variant-numeric:tabular-nums;font-weight:800;font-size:20px;color:var(--deep);min-width:64px}
+.timer .clock.over{color:var(--orange-ink)}
+.timer .bar{flex:1;height:6px;background:#e7edf2;border-radius:3px;overflow:hidden;min-width:60px}
+.timer .bar i{display:block;height:100%;background:var(--blue);width:0}
+.timer .bar i.over{background:var(--orange)}
+.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:6px 0 18px}
+.phase{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 10px;cursor:pointer;text-align:left}
+.phase b{display:block;color:var(--deep);font-size:15px}
+.phase span{font-size:13px;color:var(--muted)}
+.phase.on{border-color:var(--orange);background:var(--peach)}
+.phase.has b:after{content:" ●";color:var(--green);font-size:11px;vertical-align:2px}
+.dstabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.dstab{border:1px solid #c9d6e0;background:#fff;border-radius:10px;padding:8px 14px;font-weight:700;color:var(--deep);cursor:pointer;font-size:15px}
+.dstab.on{background:var(--sky);border-color:var(--blue);color:var(--blue)}
+.norms{display:flex;flex-wrap:wrap;gap:6px}
+.norms span{background:var(--soft);border-radius:8px;padding:5px 10px;font-size:14px}
+.arow{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:12px;background:#fcfdfe}
+.arow .fgrid label.f{margin-top:10px}
+.footnav{display:flex;justify-content:space-between;gap:12px;margin-top:22px;flex-wrap:wrap}
+.saved{font-size:14px;color:var(--green);font-weight:650;opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+
+/* Form helper */
+.q{border-top:1px solid var(--line);padding:14px 0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;align-items:start}
+.q:first-of-type{border-top:0}
+.q .qn{font-size:14px;color:var(--muted);font-weight:700}
+.q .qa{white-space:pre-wrap;font-size:16px;grid-column:1}
+.q .qa.blank{color:var(--red);font-style:italic}
+.q .btn{grid-row:1/span 2;grid-column:2}
+
+/* Data calendar */
+.months{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:16px;scrollbar-width:thin}
+.months button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 12px;font-weight:700;color:var(--deep);cursor:pointer;font-size:15px;white-space:nowrap}
+.months button.on{background:var(--deep);color:#fff;border-color:var(--deep)}
+.months button.now{border-color:var(--orange)}
+.ds{border-top:1px solid var(--line);padding:15px 0;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:14px}
+.ds:first-child{border-top:0}
+.ds h3{font-size:18px}
+.ds .lbl{font-size:13px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.rel{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr);gap:12px;padding:11px 0;border-top:1px solid var(--line);font-size:15px}
+.rel:first-child{border-top:0}
+.rel b{color:var(--deep)}
+.links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.linkcard{display:block;border:1px solid var(--line);border-radius:12px;padding:15px 16px;text-decoration:none;background:#fff;color:var(--ink)}
+.linkcard:hover{border-color:var(--blue);box-shadow:var(--shadow)}
+.linkcard b{display:block;color:var(--deep);font-size:17px;margin-bottom:3px}
+.linkcard span{font-size:15px;color:var(--muted)}
+.linkcard b:after{content:" ↗";color:var(--blue);font-weight:400}
+
+/* Parking lot */
+.plot{border-top:1px solid var(--line);padding:16px 0}
+.plot:first-child{border-top:0;padding-top:4px}
+.plot .qtext{font-weight:700;color:var(--deep);font-size:17px}
+.plot details{margin-top:8px}
+.plot summary{cursor:pointer;color:var(--blue);font-weight:650;font-size:15px}
+
+/* Priority page */
+.kv{display:grid;grid-template-columns:150px minmax(0,1fr);gap:8px 14px;font-size:16px}
+.kv dt{font-weight:700;color:var(--deep)}
+.kv dd{margin:0}
+.timeline{list-style:none;margin:0;padding:0 0 0 16px;border-left:2px solid #d6e1e9}
+.timeline li{position:relative;padding:0 0 14px;font-size:15px}
+.timeline li:before{content:"";position:absolute;left:-22px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--orange)}
+.timeline b{display:block;color:var(--deep);font-size:14px}
+table.t{width:100%;border-collapse:collapse;font-size:15px}
+table.t th{text-align:left;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:8px 8px 8px 0;border-bottom:1px solid var(--line)}
+table.t td{padding:10px 8px 10px 0;border-bottom:1px solid var(--line);vertical-align:top}
+
+/* Sample banner, modal, toast */
+.banner{display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap;background:var(--peach);border:1px solid #f6d3b3;border-radius:12px;padding:12px 16px;margin-bottom:18px;font-size:16px}
+.modal{position:fixed;inset:0;background:#0f2a3d73;display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal .box{background:#fff;border-radius:16px;width:min(640px,100%);max-height:90vh;overflow:auto;padding:24px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--deep);color:#fff;padding:11px 18px;border-radius:10px;font-weight:650;font-size:15px;opacity:0;transition:.25s;z-index:60;pointer-events:none;max-width:calc(100% - 32px)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.foot{max-width:1200px;margin:0 auto;padding:0 24px 40px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:960px){
+  .split,.month{grid-template-columns:minmax(0,1fr)}
+  .g3{grid-template-columns:1fr 1fr}
+  .ds{grid-template-columns:1fr 1fr}.ds>div:first-child{grid-column:1/-1}
+}
+@media (max-width:700px){
+  body{font-size:16px}
+  .top-in{flex-wrap:wrap;gap:6px 12px;padding:8px 14px}
+  .brand img{width:92px}
+  .brand-txt{display:none}
+  .nav{margin-left:0;width:100%;order:3}
+  .nav a{padding:8px 10px;font-size:14px}
+  .wrap{padding:20px 14px 60px}
+  .g2,.g3,.fgrid,.links,.rel,.ds{grid-template-columns:1fr}
+  .month-main,.month-side{padding:22px 20px}
+  .card{padding:18px}
+  .phases{grid-template-columns:1fr 1fr}
+  .track{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .track button{font-size:12px;padding:9px 2px}
+  .kv{grid-template-columns:1fr}
+  .prow{flex-direction:column;align-items:flex-start}
+  .q{grid-template-columns:1fr}.q .btn{grid-row:auto;grid-column:1;justify-self:start}
+  .timer{flex-wrap:wrap}
+}
+@media print{
+  .top,.foot,.noprint,.btn,.toast{display:none!important}
+  body{background:#fff;font-size:12pt}
+  .card{box-shadow:none;border:1px solid #ccc;break-inside:avoid}
+  .wrap{padding:0}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#/" aria-label="Team Workboard home">
+      <img src="images/grps-logo.png" alt="Grand Rapids Public Schools">
+      <span class="brand-txt"><b>Team Workboard</b><span id="brand-sub">Monthly data review cycle</span></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#/">Home</a>
+      <a href="#/meeting">Meeting</a>
+      <a href="#/priorities">Priorities</a>
+      <a href="#/parking">Parking lot</a>
+      <a href="#/data">Data calendar</a>
+      <a href="#/resources">Resources</a>
+    </nav>
+  </div>
+  <div class="accent"></div>
+</header>
+<main class="wrap" id="app" tabindex="-1"></main>
+<footer class="foot noprint">
+  <span>Your work saves automatically in this browser on this device. <a href="#/settings">Save a copy or switch devices</a>.</span>
+  <span>GRPS Community &amp; Student Affairs · Data Conversation Protocol adapted from NWEA</span>
+</footer>
+<div id="modal"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script>
-const seed={team:"School Team",priorities:[
-{id:1,title:"Grade 9 Success",areas:["Attendance","Academics"],where:"Testing academic re-entry support with identified Grade 9 scholars.",since:"Support reached 14 of 18 scholars; early first-hour improvement is visible for some.",next:"Understand why 4 scholars were not consistently reached.",issue:"Improve first-hour attendance and course engagement for the scholars driving the Grade 9 pattern.",know:"The attendance pattern is concentrated among a smaller group of scholars. Many of the same scholars also show academic difficulty. The team is testing whether a more manageable academic re-entry experience changes both.",evidence:{Attendance:"First-hour pattern concentrated among identified scholars.",Academics:"Many of the same scholars show course difficulty or missing work.",Implementation:"14 of 18 scholars received the planned re-entry support.",Experience:"Scholar voice is incomplete."},tried:[["Academic re-entry support","18 identified scholars","14 reached","Early attendance improvement for some; implementation gap remains."]],questions:["Why were 4 scholars not consistently reached?","Among scholars reached, who improved in both attendance and course engagement?"],moves:[["Identify implementation barrier for 4 scholars","Grade 9 Team","Next meeting"]],history:[["Sept. 8","Concern identified"],["Sept. 22","Academic connection discovered"],["Oct. 6","Re-entry response started"],["Oct. 20","14/18 scholars reached; implementation gap identified"]]},
-{id:2,title:"Grade 3 Literacy",areas:["Academics","Attendance"],where:"Targeted literacy instruction is underway.",since:"Short-cycle skill evidence improved overall; one classroom differs from the pattern.",next:"Compare implementation across classrooms before changing the strategy.",issue:"Improve the identified Grade 3 literacy skills while checking whether access and implementation differ.",know:"The team narrowed the concern to specific literacy skills and scholars. Current evidence suggests improvement, but the pattern is not consistent across classrooms.",evidence:{Academics:"Short-cycle skill evidence shows overall improvement.",Attendance:"Access is being checked for identified scholars.",Implementation:"One classroom differs from the overall response.",Experience:"Work samples available; scholar experience not yet needed."},tried:[["Targeted literacy response","Identified Grade 3 scholars","Underway","Overall improvement; classroom variation remains."]],questions:["What is different about implementation in the classroom with weaker results?"],moves:[["Compare instructional implementation across classrooms","ILT / Grade 3","Next data review"]],history:[["Sept. 10","Literacy concern identified"],["Sept. 24","Skill-level problem narrowed"],["Oct. 8","Targeted response underway"],["Oct. 22","Classroom variation identified"]]},
-{id:3,title:"Climate & Belonging",areas:["Behavior / PBIS+","Attendance","Scholar Experience"],where:"Still understanding the issue before selecting a response.",since:"Scholar feedback was collected; team has not yet compared it with the behavior/attendance pattern.",next:"Put scholar feedback beside behavior and attendance evidence.",issue:"Understand the school experiences connected to the overlapping behavior and attendance pattern.",know:"Behavior and attendance overlap in selected settings. The team intentionally paused before adding an intervention because it did not yet have enough evidence about scholar experience.",evidence:{"Behavior / PBIS+":"Pattern is stronger in selected settings.","Attendance":"Some overlap with the same scholars/groups.","Scholar Experience":"New feedback collected; not yet compared.","Implementation":"No new response selected yet."},tried:[],questions:["Does scholar feedback point to the same settings where behavior and attendance concerns are strongest?"],moves:[["Compare scholar feedback with behavior/attendance pattern","School Team","Next meeting"]],history:[["Sept. 15","Overlap identified"],["Sept. 29","Team paused intervention decision"],["Oct. 13","Scholar feedback collected"]]}
-]};
-let D=JSON.parse(localStorage.getItem("grpsWorkboard6")||"null")||seed,cur=null;const app=document.getElementById("app"),modal=document.getElementById("modal");
-const esc=x=>String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));function save(){localStorage.setItem("grpsWorkboard6",JSON.stringify(D))}
-// Restore the GRPS stage resolver. Its absence caused every notebook button to fail.
-function phaseOf(p){
- const where=String(p.where||'');
- if(/FOCUS\s*\+\s*OBSERVE|OBSERVE/i.test(where))return 1;
- if(/FOCUS/i.test(where))return 0;
- if(/EXPLAIN/i.test(where))return 2;
- if(p.tried&&p.tried.length)return 3;
- return 2;
+/* ===========================================================
+   GRPS Team Workboard v2
+   One store, hash routes, plain render functions.
+   =========================================================== */
+
+const KEY = 'grpsWorkboard.v2';
+const OLD_KEY = 'grpsWorkboard6';
+const FORM_URL = 'https://forms.gle/ZfhYE9gcJVwbUuCb9';
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const STAGES = [
+  ['focus','Focus','Frame the question before looking at data.'],
+  ['observe','Observe','What the data show, without explaining why.'],
+  ['explain','Explain','Possible causes and what more we need to know.'],
+  ['plan','Plan','Action, owner, timeline, and how we will know.'],
+  ['monitor','Monitor','Check whether the action is working.']
+];
+const NORMS = ['Pausing','Paraphrasing','Posing questions','Putting ideas on the table','Providing data','Paying attention to self and others','Presuming positive intentions'];
+const CAILS = ['Kelly Greene','Maleika Brown','Mayda Gunnell'];
+
+/* --- Reference content from the shared Data Review Cycles folder --- */
+const LINKS = {
+  folder:'https://drive.google.com/drive/folders/1p1oQJdx_qt1lu4iTob7KRH69UcvGNMm1',
+  process:'https://drive.google.com/file/d/1lFI0q-e718l796YGfvoxIiQ8pBVU12Fq/view',
+  agenda:'https://docs.google.com/document/d/1DINTmpLIgxKqS35NXrZiG2ML3DqfEP-WS53-Vx1SYpY/edit',
+  parking:'https://docs.google.com/document/d/1kLJQg1Aj_8bke24y0Lcr-1kjvc_pb7VNw2YmOQBDJNE/edit',
+  calendar:'https://drive.google.com/file/d/1R-kAmg8PRVNoeJeiIOOJ3cWSY5qGH_ci/view',
+  assess:'https://drive.google.com/file/d/1CN_Sp69Zt2PCKu4GLBBMowZY24wbqzgV/view',
+  platforms:'https://docs.google.com/document/d/1bUxMNlxlrCgzPIN9cD4wwsDCAvJ4TCHPGB8BIyD7CdE/edit',
+  rp:'https://drive.google.com/file/d/1YmLafogLqaSDarTGaPE4OnVGWBlIWby-/view',
+  survey:'https://drive.google.com/file/d/1jArJZGuPjiyJOGvfpbrjYOcuv3DZ_UfR/view',
+  mtss:'https://docs.google.com/presentation/d/1eI8xlEyrPTnFp7OqREA_hjJI68ePjSbkofIdp-EtLBw/edit',
+  actionFolder:'https://drive.google.com/drive/folders/1X6Aekf2JTk0zqmFjucjGQ6MjuOH0uMQ0'
+};
+const PLATFORMS = [
+  ['MI School Data','School Index, graduation rates, EL growth, public state reporting.','https://www.mischooldata.org/'],
+  ['Our School Data','NWEA MAP, College Board, WIDA and M-STEP reports.','https://ourschooldata.org/Identity/Account/LoginEmail?returnUrl=%2F'],
+  ['Synergy','Attendance, behavior, and marking-period grades.','https://synergy.grps.org/'],
+  ['MEIS','Michigan Education Information System sign-in.','https://mdoe.state.mi.us/meis/login.aspx']
+];
+
+// Each entry: [id, data, where it lives, who can help, what to look for]
+const D_ATT = ['attendance','Chronic absenteeism','Synergy','Matt Kaindl · Mel Atkins','Which scholars or groups are missing school, and is the pattern changing?'];
+const D_BEH = ['behavior','Behavior data','Synergy','Matt Kaindl · SEL Department · Mel Atkins','Settings, times of day, and scholar groups where incidents concentrate.'];
+const D_WALK = ['walk','Instructional walkthrough data','Building walkthrough records','Your CAIL','What observed practice looks like next to scholar outcomes.'];
+const CAL = {
+  8:[['wida','Spring WIDA ACCESS','Our School Data · OEAA data file · Synergy','Addie Collins · EL Department','Language domains and proficiency levels by grade and scholar group.'],
+     ['state','Spring M-STEP · College Board · WIN Work Readiness','OEAA data file & Dynamic Score Reports · Our School Data · Synergy','Addie Collins','Grade, content, and scholar-group patterns in released results.']],
+  9:[['map','Fall NWEA MAP','Our School Data · NWEA MAP Growth · Synergy','Steve Petros','Starting points by grade, goal area, and scholar group.'],D_ATT,D_WALK],
+  10:[['cb','Fall College Board','Our School Data','Addie Collins','Course, grade, and scholar-group patterns.'],
+      ['el','English Learner growth report','MI School Data','Addie Collins · EL Department','Growth next to access and instruction.'],D_ATT,D_BEH,D_WALK,
+      ['mp1','MP1 classroom grades','Synergy','Your CAIL','Course failures and missing work, and who they cluster around.']],
+  11:[['index','School Index reports','MI School Data','Addie Collins','Which published indicators moved, and which drive the overall index.'],D_ATT,D_BEH,D_WALK],
+  12:[['index','School Index reports','MI School Data','Addie Collins','Which published indicators moved, and which drive the overall index.'],D_ATT,D_BEH,D_WALK],
+  1:[['mp2','MP2 classroom grades','Synergy','Your CAIL','Change since MP1 for the scholars you identified in the fall.'],
+     ['map','Winter NWEA MAP','Our School Data · NWEA MAP Growth · Synergy','Steve Petros','Fall-to-winter growth by grade, goal area, and scholar group.'],
+     ['grad','Graduation rates','MI School Data','SDS Department','Cohort patterns and the groups furthest from graduation.'],D_ATT,D_BEH],
+  2:[['grad','Graduation rates','MI School Data','SDS Department','Cohort patterns and the groups furthest from graduation.'],D_ATT,D_BEH,D_WALK],
+  3:[['mp3','MP3 classroom grades','Synergy','Your CAIL','Course failures and recovery for identified scholars.'],D_ATT,D_BEH,D_WALK],
+  4:[['mstep','Preliminary M-STEP (as scholars finish testing)','OEAA Dynamic Score Reporting','Addie Collins','Early signals by grade and content. Results are preliminary.'],D_ATT,D_BEH,D_WALK],
+  5:[['mstep','Preliminary M-STEP (as scholars finish testing)','OEAA Dynamic Score Reporting','Addie Collins','Early signals by grade and content. Results are preliminary.'],
+     ['map','Spring NWEA MAP','Our School Data · NWEA MAP Growth','Steve Petros','Year-long growth and who met their growth targets.'],D_ATT,D_BEH,D_WALK],
+  6:[['mp4','MP4 and end-of-year grades','Synergy','Your CAIL','End-of-year course outcomes for scholars you tracked all year.'],D_ATT,D_BEH,D_WALK],
+  7:[]
+};
+const RELEASES = [
+  ['Fall NWEA MAP','Late August – early September','Early – mid September','Our School Data · NWEA · Synergy'],
+  ['WIDA Screener','Ongoing (fall push through Sept. 30)','A&E sends the list to SDS in October; then a monthly Synergy PHLOTE report','Synergy'],
+  ['Fall College Board','First two weeks of October','Late October','Our School Data'],
+  ['Winter NWEA MAP','Early January','Mid – late January','Our School Data · NWEA · Synergy'],
+  ['Spring WIDA ACCESS','Late January – end of March','End of June or early July','OEAA file download · Our School Data · Synergy'],
+  ['Spring College Board','April, after spring break','Embargoed early August; public late August','OEAA file download · Our School Data · Synergy'],
+  ['Spring NWEA MAP','April, after spring break','Early May','Our School Data · NWEA'],
+  ['Spring M-STEP & MI-Access','April – May','Preliminary 48 hours after a scholar tests; embargoed early August; public late August or early September','OEAA Dynamic Score Reporting · Our School Data · Synergy']
+];
+const PROTOCOL = {
+  focus:{name:'Focus',min:3,ask:'Before you see the data, frame your problem of practice as a focus question.',
+    starters:['I wonder…','I predict…','I assume…','I expect to see…'],avoid:''},
+  observe:{name:'Observe',min:7,ask:'What do you see in the data? Stick to what is there.',
+    starters:['I see that…','I notice the pattern or trend…','I can count…','I’m surprised by…'],
+    avoid:'Hold these for Explain: causes, “because…”, “however…”, explanations, ideas for fixing, “if only…”.'},
+  explain:{name:'Explain',min:7,ask:'Generate several possible causes, then choose which to investigate. Name any additional data you need.',
+    starters:['Why might … be?','What does past history say about…?','What additional data might help explain…?','What do we know about previous attempts to…?'],avoid:''},
+  plan:{name:'Plan',min:3,ask:'Turn what you learned into action: what, who, by when, how you will monitor, and what success looks like.',
+    starters:['What step could we take this week?','What will be different as a result?','What will we do, and by when?'],avoid:''}
+};
+const MSTEPS = [
+  {key:'open',name:'Open',min:10,sub:'Check-in, norms, objectives'},
+  {key:'back',name:'Look back',min:10,sub:'Last month’s next steps'},
+  {key:'data',name:'Data conversation',min:60,sub:'Focus → Observe → Explain → Plan'},
+  {key:'close',name:'Close',min:10,sub:'Next steps, Plus / Delta'},
+  {key:'done',name:'Monthly form',min:0,sub:'Copy answers and submit'}
+];
+
+/* --- Utilities --- */
+const $ = s => document.querySelector(s);
+const esc = x => String(x ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const uid = () => Math.random().toString(36).slice(2, 9);
+const todayISO = () => { const d = new Date(); return new Date(d - d.getTimezoneOffset()*6e4).toISOString().slice(0,10); };
+const fmtDate = iso => { if(!iso) return ''; const d = new Date(iso+'T12:00:00'); return isNaN(d) ? iso : d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); };
+const shortDate = iso => { if(!iso) return ''; const d = new Date(iso+'T12:00:00'); return isNaN(d) ? iso : d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); };
+const monthOf = iso => (iso ? new Date(iso+'T12:00:00') : new Date()).getMonth()+1;
+const monthKey = iso => (iso || todayISO()).slice(0,7);
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toast._t); toast._t=setTimeout(()=>t.classList.remove('show'),2200); }
+function copyText(text){
+  const done = () => toast('Copied. Paste it into the form.');
+  if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text).then(done, () => fallback());
+  fallback();
+  function fallback(){ const ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); done();}catch(e){toast('Select the text and copy it manually.');} ta.remove(); }
 }
-let workFilter="",showAllWork=false;
-function workRows(){let active=D.priorities.filter(p=>!p.status||p.status==='active');let filtered=active.filter(p=>(p.title+' '+(p.next||'')+' '+(p.questions||[]).join(' ')).toLowerCase().includes(workFilter.toLowerCase()));let shown=showAllWork?filtered:filtered.slice(0,3);let list=document.getElementById('work-list');if(!list)return;list.innerHTML=shown.map(p=>`<article class="resume-row"><div class="resume-main"><div class="resume-title">${esc(p.title)}</div><div class="resume-detail"><span class="resume-label">WHERE WE LEFT OFF</span>${esc((p.questions&&p.questions[0])||p.next||'No question recorded yet.')}</div><div class="resume-next"><b>Next:</b> ${esc(p.next||'Decide the next step together.')}</div></div><button class="btn primary resume-btn" data-open-priority="${esc(p.id)}" type="button">Open notebook →</button></article>`).join('')||'<div class="resume-empty">No matching priorities. Try another search or start something new.</div>';let more=document.getElementById('work-more');if(more){more.style.display=filtered.length>3?'inline-flex':'none';more.textContent=showAllWork?'Show fewer priorities':'Show all '+filtered.length+' priorities';}let count=document.getElementById('work-count');if(count)count.textContent=active.length+' active · '+D.priorities.filter(p=>p.status==='paused').length+' paused';}
-document.addEventListener("click",function(event){const button=event.target.closest("[data-open-priority]");if(!button)return;event.preventDefault();const id=button.getAttribute("data-open-priority");try{openP(id)}catch(error){console.error("Could not open priority",error);alert("This notebook could not be opened. Your saved work has not been changed.")}});
-function filterWork(v){workFilter=v;showAllWork=true;workRows()}
-function toggleAllWork(){showAllWork=!showAllWork;workRows()}
-function home(){let active=D.priorities.filter(p=>!p.status||p.status==='active');app.innerHTML=`<div class="notebook-home"><section class="notebook-intro"><div class="label">GRPS · TEAM NOTEBOOK</div><h1>What is your team working on today?</h1><p>Start a question, return to your team's work, or prepare for a meeting.</p></section><section class="notebook-actions"><button class="notebook-start" onclick="startNew()"><strong>＋ Start something new</strong><span>Tell us what you're noticing. We'll help you decide where to begin.</span><span style="margin-top:16px;font-weight:750">Start a conversation →</span></button><button class="notebook-action" onclick="document.getElementById('current-work').scrollIntoView({behavior:'smooth'})"><strong>Continue our work →</strong><span>Open a notebook and pick up the conversation.</span></button><button class="notebook-action" onclick="meetingPrep()"><strong>Get ready for a meeting →</strong><span>See what needs discussion and what to bring.</span></button></section><section id="current-work" class="resume-section"><div class="notebook-section-head"><div><h2>Continue our work</h2><p class="resume-intro">Choose a priority to open its notebook. Your notes, evidence and next steps are saved there.</p></div><span class="muted" id="work-count"></span></div><div class="resume-controls"><label for="work-search">Find a priority</label><input id="work-search" class="input" type="search" placeholder="Search by topic or question" oninput="filterWork(this.value)"></div><div id="work-list" class="resume-list"></div><div class="resume-bottom"><button id="work-more" class="btn ghost" onclick="toggleAllWork()"></button><button class="btn ghost" onclick="meetingPrep()">Prepare for a meeting →</button></div></section><div class="notebook-foot"><button class="btn ghost" onclick="teamPulse()">What needs attention?</button><button class="btn ghost" onclick="dataNow()">Find data</button><button class="btn ghost" onclick="originalTools()">GRPS resources</button><button class="btn ghost" onclick="backupSettings()">Save a copy</button></div><details class="notebook-process"><summary>How our GRPS process works</summary><p><b>Focus</b> — What are we trying to understand? &nbsp; <b>Observe</b> — What does the evidence show? &nbsp; <b>Explain</b> — Why might this be happening? &nbsp; <b>Plan</b> — What will we do and how will we check results?</p></details></div>`;workFilter='';showAllWork=false;workRows()}
-function openP(id){cur=D.priorities.find(p=>String(p.id)===String(id));if(!cur){alert("This priority could not be found. Your saved work is unchanged.");home();return}cur.areas=Array.isArray(cur.areas)?cur.areas:[];cur.questions=Array.isArray(cur.questions)?cur.questions:[];cur.evidence=cur.evidence||{};cur.tried=Array.isArray(cur.tried)?cur.tried:[];cur.moves=Array.isArray(cur.moves)?cur.moves:[];cur.history=Array.isArray(cur.history)?cur.history:[];let ph=phaseOf(cur),phases=['Focus','Observe','Explain','Plan'];app.innerHTML=`<div class="priority-notebook"><div class="notebook-priority-head"><div class="label">OUR TEAM NOTEBOOK · ${(cur.areas||[]).map(esc).join(' + ')}</div><h1>${esc(cur.title)}</h1><p><b>Our question:</b> ${esc(cur.issue)}</p><div class="notebook-steps">${phases.map((name,i)=>`<div class="notebook-step ${i===ph?'active':''}">${i<ph?'✓ ':''}${name}</div>`).join('')}</div></div><div class="notebook-two"><main><section class="notebook-paper"><div class="label">TODAY'S CONVERSATION</div><h2>Pick up where we left off</h2><p>${esc(cur.since)}</p><div class="notebook-prompt"><b>WHAT WE NEED TO UNDERSTAND NEXT</b><p>${esc((cur.questions&&cur.questions[0])||cur.next)}</p></div><p><b>Next move:</b> ${esc(cur.next)}</p><div class="notebook-actions-row"><button class="btn primary" onclick="guidedNext()">Guide our conversation →</button><button class="btn ghost" onclick="editPriority()">Add today's notes</button></div></section><section class="notebook-paper"><h2>What we know so far</h2><p>${esc(cur.know)}</p>${Object.entries(cur.evidence||{}).map(([k,v])=>`<div class="notebook-note"><b>${esc(k)}</b>${esc(v)}</div>`).join('')}<div class="notebook-actions-row"><button class="btn ghost" onclick="analysisWorkbench()">Look at the evidence</button><button class="btn ghost" onclick="dataNow(cur.id)">Find data for this question</button></div></section><section class="notebook-paper"><h2>What we've tried and learned</h2>${cur.tried.length?`<div style="overflow-x:auto"><table class="notebook-table"><tr><th>Response</th><th>Who</th><th>Implementation</th><th>What we learned</th></tr>${cur.tried.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</table></div>`:`<p>No response selected yet. The team is still understanding the concern.</p>`}<div class="notebook-actions-row"><button class="btn ghost" onclick="planReviewWorkbench()">Make a plan / Check results</button></div></section><section class="notebook-paper"><h2>Next steps</h2><div style="overflow-x:auto"><table class="notebook-table"><tr><th>Action</th><th>Owner</th><th>When</th></tr>${(cur.moves||[]).map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</table></div><div class="notebook-actions-row"><button class="btn ghost" onclick="handoffFlow(cur.id)">Share with another team</button><button class="btn ghost" onclick="closePriorityFlow()">Pause or finish</button></div></section></main><aside class="notebook-sidebar"><section class="notebook-paper"><h2>Running notes</h2><p class="muted">Your team's history stays with this priority.</p>${(cur.history||[]).slice().reverse().map(h=>`<div class="notebook-note"><b>${esc(h[0])}</b>${esc(h[1])}</div>`).join('')}</section><section class="notebook-paper"><h2>Help when you need it</h2><button class="btn ghost" onclick="helpThink()">Help us decide what's next</button><div style="height:9px"></div><button class="btn ghost" onclick="resourcesForWork()">Resources for this work</button></section></aside></div></div>`}
-function guidedNext(){let ph=phaseOf(cur);if(ph===0||ph===1){analysisWorkbench();return}if(ph===2){helpThink();return}planReviewWorkbench()}
-function helpThink(){let tips=[];let ev=cur.evidence;if(/FOCUS \+ OBSERVE/i.test(cur.where))tips.push("You are still in FOCUS / OBSERVE. Stay with what the evidence shows before moving to causes or solutions. When the pattern is clear enough, move to EXPLAIN: Why might this be?");if(ev.Implementation&&/14 of 18|gap|not|partial/i.test(ev.Implementation))tips.push("You have an implementation gap. Before judging the response, understand why the intended scholars did not all receive it.");if(cur.areas.includes("Attendance")&&cur.areas.includes("Academics"))tips.push("This priority includes attendance and academics. Keep checking whether the same scholars are driving both patterns rather than reviewing the two sets of evidence separately.");if(cur.questions.length)tips.push("The team already has an unresolved question. Answer that before adding another strategy or broadening the problem.");if(cur.areas.length>1)tips.push("This is a cross-domain priority. Compare evidence at the scholar/group level when possible; district or school averages can hide whether the same scholars are driving each pattern.");if(Object.keys(cur.evidence||{}).length<2)tips.push("The original GRPS process expects multiple pieces of evidence. This priority currently has fewer than two evidence sources in view.");if(!cur.tried.length)tips.push("You have not selected a response yet. That may be appropriate: use the current evidence to strengthen the explanation before moving to action.");let phase=phaseOf(cur);let advance=phase===1?`<button class="btn primary" onclick="moveToExplain()">Explore possible reasons</button>`:phase===2?`<button class="btn primary" onclick="moveToPlan()">Make a plan</button>`:`<button class="btn primary" onclick="closeModal()">Back to the work</button>`;showModal(`<div class="label">Help us figure out the next step</div><h2>Based on what your team has recorded</h2>${tips.map(t=>`<div class="help">${esc(t)}</div>`).join("")||`<div class="help">No obvious gap is visible from the current record. Keep the open question in front of the team.</div>`}<div class="row"><button class="btn ghost" onclick="closeModal()">Back</button>${advance}</div>`)}
-function editPriority(){showModal(`<div class="label">Update this work</div><h2>Add what has changed since the last meeting. You do not need to start over.</h2><label class="muted">Since last time</label><textarea class="input" id="us">${esc(cur.since)}</textarea><label class="muted">What we know now</label><textarea class="input" id="uk">${esc(cur.know)}</textarea><label class="muted">Next</label><textarea class="input" id="un">${esc(cur.next)}</textarea><label class="muted">Add one open question</label><input class="input" id="uq" placeholder="Optional"><div class="row"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveUpdate()">Save update</button></div>`)}
-function saveUpdate(){cur.since=us.value.trim();cur.know=uk.value.trim();cur.next=un.value.trim();if(uq.value.trim())cur.questions.push(uq.value.trim());cur.history.push([new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"}),"Priority updated"]);save();closeModal();openP(cur.id)}
-function today(){let ps=D.priorities.filter(p=>!p.status||p.status==='active');app.innerHTML=`<div class="top"><div><div class="label">Today's meeting</div><h1>${esc(D.team)}</h1><div class="muted">Use the original GRPS meeting rhythm while keeping the team's ongoing priorities in view.</div></div><button class="btn ghost" onclick="home()">Exit meeting</button></div><div class="card"><div class="label">90-minute GRPS meeting rhythm</div><div class="evidence"><div class="ev"><b>OPEN · 20 MIN</b>Check-in · norms · objectives · previous goals/action steps</div><div class="ev"><b>DATA CONVERSATION · 60 MIN</b>Focus → Observe → Explain → Plan using 2–3 relevant pieces of evidence</div><div class="ev"><b>CLOSE · 10 MIN</b>Next steps · communication · accountability · Plus/Delta</div><div class="ev"><b>MEETING ROLES</b>Facilitator · timekeeper · note taker · active participants</div></div></div><div class="today">${ps.map(p=>`<div class="todayitem"><b>${esc(p.title)}</b><br><span class="muted">What we know so far:</span> ${esc(p.where)}<br><span class="muted">What is new:</span> ${esc(p.since)}<br><span class="muted">Next move:</span> ${esc(p.next)}<div style="margin-top:7px"><button class="btn ghost" onclick="openP(${p.id})">Work on this priority</button></div></div>`).join("")}</div><div class="card" style="margin-top:12px"><div class="label">Before the team leaves</div><div class="closegrid"><div class="statusnote"><b>Next steps</b><br>Is each action clear, owned, and time-bound?</div><div class="statusnote"><b>Communication</b><br>Who else needs to know what the team learned or decided?</div><div class="statusnote"><b>Questions to revisit</b><br>What question, data need, or unfinished issue must carry forward?<div style="margin-top:7px"><button class="btn ghost" onclick="parkingLot()">Add item</button></div></div><div class="statusnote"><b>Plus / Delta</b><br>What helped this meeting? What should change next time?</div></div></div>`}
-function startNew(){window._newWork=window._newWork||{areas:[]};showModal(`<div class="label">START SOMETHING NEW · FOCUS</div><h2>What's bringing your team together?</h2><div class="muted">You don't need a perfectly worded question or all the data to begin. Start with what your team has noticed.</div><div class="startchoice"><label for="nf"><b>What are you noticing or concerned about?</b><span>Use your own words. We'll help turn it into a question to explore.</span></label><textarea class="input" id="nf" rows="3" placeholder="Example: More ninth-grade scholars are missing first period, and several are also falling behind in English.">${esc(window._newWork.focus||"")}</textarea><div class="label" style="margin-top:14px">Which areas might be connected?</div><div class="muted">Choose any that apply. You can change these later.</div><div class="areachoices">${["Academics","Attendance","Behavior / PBIS+","School climate / belonging","Scholar or family experience","Other / not sure"].map(x=>`<label class="areachip"><input type="checkbox" name="newarea" value="${x}" ${window._newWork.areas.includes(x)?"checked":""}> ${x}</label>`).join("")}</div><label for="ns"><b>What brought this to your attention?</b><span>A data point, conversation, observation, or concern is enough to start.</span></label><textarea class="input" id="ns" rows="2" placeholder="Example: Our attendance review and ninth-grade team both raised this concern.">${esc(window._newWork.surfaced||"")}</textarea></div><div class="startnote"><b>You can start even if you're unsure.</b> The next step helps your team decide what it needs to check before making a plan.</div><div class="row"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="startObserve()">Continue: What should we check? →</button></div>`)}
-function startObserve(){let focus=nf.value.trim(),surfaced=ns.value.trim(),areas=[...document.querySelectorAll('input[name="newarea"]:checked')].map(x=>x.value);if(!focus)return alert("Tell us what your team has noticed or is concerned about.");window._newWork={...window._newWork,focus,surfaced,areas};let w=window._newWork;showModal(`<div class="label">OBSERVE · WHAT SHOULD WE CHECK?</div><h2>What would help us understand this?</h2><div class="startnote"><b>Your starting point</b><br>${esc(w.focus)}</div><div class="muted">Look at two or three useful pieces of evidence when available. You can save your question now and come back to the evidence later.</div><div class="startchoice"><label for="ne1"><b>What do you already know?</b><span>Use a number, pattern, observation, or something scholars or families have told you.</span></label><textarea class="input" id="ne1" rows="2" placeholder="Example: First-period absences have increased since September.">${esc(w.ev1||"")}</textarea><label for="ne2"><b>What else could help confirm or challenge that picture?</b><span>Choose a different source or another perspective if possible.</span></label><textarea class="input" id="ne2" rows="2" placeholder="Example: Compare first-period absences with course performance and ask scholars about barriers.">${esc(w.ev2||"")}</textarea><label for="ne3"><b>One more source, if useful (optional)</b></label><input class="input" id="ne3" placeholder="Optional third source" value="${esc(w.ev3||"")}"><label for="no"><b>What pattern do you see so far?</b><span>Describe what you see, not why you think it happened. It's fine to say you don't know yet.</span></label><textarea class="input" id="no" rows="2" placeholder="Example: The same group of scholars may be showing up in both sets of data.">${esc(w.obs||"")}</textarea></div><div class="row"><button class="btn ghost" onclick="backToNew()">← Back</button><button class="btn primary" onclick="createInvestigation()">Save and open this work →</button></div>`)}
-function backToNew(){let w=window._newWork||{};w.ev1=ne1.value;w.ev2=ne2.value;w.ev3=ne3.value;w.obs=no.value;startNew()}
-function createInvestigation(){let w=window._newWork||{},ev=[ne1.value.trim(),ne2.value.trim(),ne3.value.trim()].filter(Boolean),obs=no.value.trim(),id=Date.now(),needsEvidence=ev.length<2;let p={id,title:w.focus.length>70?w.focus.slice(0,67)+"…":w.focus,areas:w.areas||[],where:needsEvidence?"FOCUS / OBSERVE — gather evidence before explaining the pattern.":"FOCUS / OBSERVE — compare evidence before explaining the pattern.",since:w.surfaced||"A new question was raised.",next:needsEvidence?"Identify the evidence needed to understand this question.":"Compare the evidence and describe the pattern before exploring explanations.",issue:w.focus,know:obs?`What we notice so far: ${obs}`:"The team has not described a pattern yet.",evidence:{},tried:[],questions:[needsEvidence?"What other evidence would help us understand this?":"Do these sources tell the same story?","What do we still need to learn before deciding what to do?"],moves:[[needsEvidence?"Identify another useful evidence source":"Compare the evidence and describe the pattern","Team","Next meeting"]],history:[[new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"}),"FOCUS: question recorded"],[new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"}),needsEvidence?"OBSERVE: evidence still needed":"OBSERVE: initial evidence recorded"]]};if(w.surfaced)p.know+=` What brought this up: ${w.surfaced}`;ev.forEach((x,i)=>p.evidence["Evidence "+(i+1)]=x);if(!ev.length)p.evidence["Evidence needed"]="Identify two or three useful sources when available.";D.priorities.push(p);save();window._newWork=null;closeModal();openP(id)}
-function analysisWorkbench(){let ev=Object.entries(cur.evidence||{});showModal(`<div class="label">LOOK AT THE EVIDENCE</div><h2>Look closely at the evidence before deciding what to do</h2><div class="muted">First, describe what the evidence shows. Then, discuss what might explain it.</div><div class="section"><div class="label">1 · Put 2–3 pieces of evidence in view</div><div class="obsgrid">${ev.length?ev.slice(0,3).map(([k,v])=>`<div class="obsbox"><b>${esc(k)}</b>${esc(v)}</div>`).join(""):`<div class="obsbox"><b>Evidence needed</b>Add the 2–3 most useful pieces of evidence for this question.</div>`}</div></div><div class="section"><div class="label">2 · OBSERVE — what does the evidence actually show?</div><div class="micro">Use “I see…”, “I notice…”, “I can count…”. Avoid causes and solutions here.</div><textarea class="input" id="ob1" placeholder="What pattern, trend, difference, similarity, or concentration do you see?"></textarea><div class="checkrow"><input type="checkbox" id="obWho"><label for="obWho"><b>Who?</b> Is the pattern widespread or concentrated among particular scholars/groups?</label></div><div class="checkrow"><input type="checkbox" id="obWhen"><label for="obWhen"><b>When / where?</b> Does it change by grade, course, period, day, classroom, setting, or time?</label></div><div class="checkrow"><input type="checkbox" id="obSame"><label for="obSame"><b>Same scholars?</b> If multiple domains are involved, are the same scholars driving the patterns?</label></div><div class="checkrow"><input type="checkbox" id="obImpl"><label for="obImpl"><b>Implementation?</b> Do we know whether the intended practice/support actually occurred?</label></div><div class="checkrow"><input type="checkbox" id="obExp"><label for="obExp"><b>Experience?</b> Is there scholar, family, or staff experience evidence that helps us understand the pattern?</label></div></div><div class="section"><div class="label">3 · What do these pieces of evidence tell us together?</div><select class="input" id="obRel"><option value="">Choose what best describes the evidence</option><option>The evidence points in the same direction</option><option>The evidence is mixed</option><option>The evidence appears to conflict</option><option>We are looking at different groups/settings and cannot compare them fairly yet</option><option>We still need another kind of evidence</option></select></div><div class="row"><button class="btn ghost" onclick="closeModal()">Back</button><button class="btn primary" onclick="interpretObserve()">Interpret what we observed</button></div>`)}
-function interpretObserve(){let obs=ob1.value.trim(),rel=obRel.value;if(!obs)return alert("Add what the team observes in the evidence.");let checked=[obWho.checked?"who/groups":"",obWhen.checked?"when/settings":"",obSame.checked?"same scholars across domains":"",obImpl.checked?"implementation":"",obExp.checked?"experience":""].filter(Boolean);let msg="";if(rel==="The evidence points in the same direction")msg="The evidence tells a similar story. You can explore possible reasons, but it does not yet tell you what caused the pattern.";else if(rel==="The evidence is mixed")msg="The evidence shows different patterns. Find out which scholars or settings differ before deciding what to do.";else if(rel==="The evidence appears to conflict")msg="The evidence seems to disagree. Check whether it covers the same scholars, time period, and setting before drawing a conclusion.";else if(rel.includes("cannot compare"))msg="These results cannot be compared fairly yet. Check that they cover the same scholars, time period, or setting.";else if(rel.includes("another kind"))msg="We need more information. Write down what is missing and who will find it.";else msg="The team has an observation, but still needs to characterize how the evidence relates across sources.";window._obs={obs,rel,checked,msg};showModal(`<div class="label">OBSERVE</div><h2>What we can say about the evidence so far</h2><div class="compare"><strong>Team observation:</strong><br>${esc(obs)}</div><div class="signal"><strong>Across the evidence:</strong><br>${esc(msg)}</div><div class="signal"><strong>Checks completed:</strong><br>${checked.length?esc(checked.join(" · ")):"No comparison checks marked yet."}</div><div class="section"><div class="label">Are we describing what happened or guessing why?</div><div class="muted">A useful test: if the statement answers <b>what is happening</b>, it belongs in OBSERVE. If it answers <b>why it is happening</b>, it belongs in EXPLAIN.</div></div><div class="row"><button class="btn ghost" onclick="analysisWorkbench()">Revise observation</button><button class="btn primary" onclick="explainFromObserve()">Move to EXPLAIN</button></div>`)}
-function explainFromObserve(){let o=window._obs||{};showModal(`<div class="label">EXPLAIN</div><h2>Check whether our explanation fits the evidence</h2><div class="compare"><strong>What we observed:</strong><br>${esc(o.obs||"")}</div><div class="section"><label class="muted"><b>Why might this pattern be happening?</b></label><textarea class="input" id="why1" placeholder="Possible explanation 1"></textarea><textarea class="input" id="why2" placeholder="Possible explanation 2 — optional"></textarea><textarea class="input" id="why3" placeholder="Possible explanation 3 — optional"></textarea></div><div class="section"><label class="muted"><b>Which possible reason fits the evidence best?</b></label><textarea class="input" id="bestwhy"></textarea><label class="muted"><b>What evidence supports it?</b></label><textarea class="input" id="supportwhy"></textarea><label class="muted"><b>What information might show that this explanation is wrong?</b></label><textarea class="input" id="challengewhy"></textarea><label class="muted"><b>What have we already tried, and what happened?</b></label><textarea class="input" id="priorwhy"></textarea></div><div class="row"><button class="btn ghost" onclick="interpretObserve()">Back to OBSERVE</button><button class="btn primary" onclick="testExplanation()">Test this explanation</button></div>`)}
-function testExplanation(){let best=bestwhy.value.trim(),sup=supportwhy.value.trim(),chall=challengewhy.value.trim();if(!best)return alert("Add the explanation the team believes is best supported.");let strength=!sup?"Not ready":chall?"Testable":"Needs a challenge check";let guidance=strength==="Not ready"?"The team has an explanation but has not identified evidence supporting it. Do not move to PLAN yet.":strength==="Needs a challenge check"?"The team has supporting evidence, but has not named what could disconfirm the explanation. Add a challenge check before treating it as strong enough to plan from.":"The explanation has supporting evidence and a way to challenge it. The team can decide whether it is strong enough to PLAN from.";window._exp={best,sup,chall,prior:priorwhy.value.trim(),strength};showModal(`<div class="label">EXPLAIN</div><h2>Do we have enough information to make a plan?</h2><div class="signal"><strong>Current explanation</strong><br>${esc(best)}</div><div class="signal"><strong>Evidence supporting it</strong><br>${esc(sup||"Not yet identified")}</div><div class="signal"><strong>What could challenge it</strong><br>${esc(chall||"Not yet identified")}</div><div class="help"><b>${esc(strength)}</b><br>${esc(guidance)}</div><div class="row"><button class="btn ghost" onclick="explainFromObserve()">Revise</button>${strength==="Testable"?`<button class="btn primary" onclick="saveWorkbench()">Save and move toward PLAN</button>`:`<button class="btn primary" onclick="saveWorkbench()">Save — more evidence needed</button>`}</div>`)}
-function saveWorkbench(){let o=window._obs||{},e=window._exp||{};cur.since="The team compared multiple pieces of evidence and clarified what the pattern does—and does not—show.";cur.know=`Observed: ${o.obs||""} Current explanation: ${e.best||""} Supporting evidence: ${e.sup||"not yet established"}.`;cur.where=e.strength==="Testable"?"EXPLAIN — explanation is testable against the evidence.":"EXPLAIN — explanation needs stronger evidence before planning.";cur.questions=[e.chall?`Check whether this is true: ${e.chall}`:"What evidence would weaken or challenge the current explanation?"];cur.next=e.strength==="Testable"?"Decide whether the explanation is strong enough to move into PLAN.":"Gather the missing evidence before selecting a response.";cur.history.push([new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"}),"OBSERVE + EXPLAIN updated"]);save();closeModal();openP(cur.id)}
-function planReviewWorkbench(){if(!(cur.tried&&cur.tried.length)){moveToPlan();return}reviewPlan()}
-function reviewPlan(){let last=cur.tried[cur.tried.length-1]||[];showModal(`<div class="label">CHECK THE RESULTS</div><h2>What happened after we started the plan?</h2><div class="compare"><strong>Current response:</strong><br>${esc(last[0]||"")}</div><label class="muted"><b>Did we carry out the plan as intended?</b></label><select class="input" id="rvImpl"><option value="">Choose</option><option>Yes — consistently</option><option>Mostly</option><option>Partly</option><option>Very little / not at all</option><option>We do not know yet</option></select><textarea class="input" id="rvImplEv" placeholder="Implementation evidence"></textarea><label class="muted"><b>What is new for scholars?</b></label><select class="input" id="rvImpact"><option value="">Choose</option><option>Improved clearly</option><option>Improved somewhat</option><option>Mixed</option><option>Little or no change</option><option>Got worse</option><option>We do not know yet</option></select><textarea class="input" id="rvImpactEv" placeholder="Outcome evidence"></textarea><div class="row"><button class="btn ghost" onclick="closeModal()">Back</button><button class="btn primary" onclick="interpretReview()">Interpret the review</button></div>`)}
-function interpretReview(){let i=rvImpl.value,o=rvImpact.value;if(!i||!o)return alert("Choose both implementation and outcome status.");let cls="hold",h="",m="",n="";if(i==="We do not know yet"||o==="We do not know yet"){h="We need more information first";m="The team is missing evidence needed to judge the response.";n="Gather the missing implementation or outcome evidence before changing the plan."}else if(["Partly","Very little / not at all"].includes(i)){h="Carry out the plan consistently before judging results";m="The response did not occur consistently enough to make a fair claim about whether it works.";n="Identify the implementation barrier, adjust it, and review again."}else if(["Yes — consistently","Mostly"].includes(i)&&["Little or no change","Got worse"].includes(o)){cls="rethink";h="Take another look at the reason and the plan";m="Implementation was reasonably strong, but the intended outcome did not improve.";n="Return to EXPLAIN: reconsider the reason for the pattern, the match of the response, or its intensity."}else if(["Yes — consistently","Mostly"].includes(i)&&["Improved clearly","Improved somewhat"].includes(o)){cls="go";h="Keep going, and check which scholars benefited";m="The response was implemented and the intended outcome improved.";n="Continue while checking for scholars/groups/settings where improvement is weaker."}else{h="Results are mixed";m="Do not collapse mixed results into one average conclusion.";n="Compare who improved with who did not before changing the whole plan."}window._review={i,o,h,m,n};showModal(`<div class="label">REVIEW</div><h2>${esc(h)}</h2><div class="decision ${cls}"><b>${esc(m)}</b><br>${esc(n)}</div><div class="planstrip"><div class="planbox"><b>Implementation</b>${esc(i)}</div><div class="planbox"><b>Impact</b>${esc(o)}</div><div class="planbox"><b>Next decision</b>${esc(n)}</div></div><div class="row"><button class="btn ghost" onclick="reviewPlan()">Revise</button><button class="btn primary" onclick="saveReview()">Save to team history</button></div>`)}
-function saveReview(){let r=window._review||{};cur.since=`Implementation: ${r.i}. Outcome: ${r.o}.`;cur.know+=` Latest review: ${r.m}`;cur.next=r.n;cur.questions=[r.n];cur.history.push([new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"}),r.h]);save();closeModal();openP(cur.id)}
-function parkingLot(){showModal(`<div class="label">QUESTIONS TO COME BACK TO</div><h2>Save questions to revisit</h2><input class="input" id="pk1" placeholder="Question, data need, or wondering"><input class="input" id="pk2" placeholder="Owner"><textarea class="input" id="pk3" placeholder="Next step"></textarea><div class="row"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveParking()">Save item</button></div>`)}
-function saveParking(){let q=pk1.value.trim();if(!q)return alert("Add the question, data need, or wondering.");D.parking=D.parking||[];D.parking.push({q,owner:pk2.value.trim(),next:pk3.value.trim()});save();closeModal()}
-function closePriorityFlow(){showModal(`<div class="label">FINISH OR PAUSE THIS WORK</div><h2>Should we keep going, pause, or finish?</h2><div class="muted">Closing a priority does not erase its history. The team should record why the work is ending or pausing and what would cause it to return.</div><select class="input" id="cp1"><option value="">Choose</option><option>Close — intended improvement is sustained</option><option>Close — no longer a current priority</option><option>Pause — waiting for evidence</option><option>Pause — another team or person owns the next step</option><option>Pause — timing or capacity requires us to return later</option></select><textarea class="input" id="cp2" placeholder="What evidence or reasoning supports this decision?"></textarea><textarea class="input" id="cp3" placeholder="What would cause the team to reopen this work?"></textarea><div class="row"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveClosure()">Save decision</button></div>`)}
-function saveClosure(){if(!cp1.value)return alert("Choose whether the priority is closing or pausing.");cur.status=cp1.value.startsWith("Close")?"closed":"paused";cur.since=cp1.value+". "+cp2.value.trim();cur.next=cur.status==="paused"?(cp3.value.trim()||"Return when the needed condition is met."):"Priority closed. History remains available.";cur.history.push([new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"}),cp1.value]);save();closeModal();home()}
-function handoffFlow(id){cur=D.priorities.find(p=>p.id===id);showModal(`<div class="label">SHARE WITH ANOTHER TEAM</div><h2>Share the next step while keeping the full history</h2><div class="muted">The original priority remains in this team's history even when another person or team has a next step.</div><input class="input" id="hf1" placeholder="Which team or person needs this?"><textarea class="input" id="hf2" placeholder="What should they know or do next?"></textarea><input class="input" id="hf3" placeholder="When should they get back to us?"><div class="row"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveHandoff()">Save handoff</button></div>`)}
-function saveHandoff(){if(!hf1.value.trim())return alert("Add who needs the handoff.");cur.handoffs=cur.handoffs||[];cur.handoffs.push({to:hf1.value.trim(),ask:hf2.value.trim(),back:hf3.value.trim(),date:new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"})});cur.history.push([new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"}),"Handoff to "+hf1.value.trim()]);save();closeModal();openP(cur.id)}
-function meetingPrep(){let active=D.priorities.filter(p=>p.status!=="closed"&&p.status!=="paused"),paused=D.priorities.filter(p=>p.status==="paused");app.innerHTML=`<div class="top"><div><div class="label">GET READY FOR A MEETING</div><h1>Pick up where your team left off</h1><p class="muted">Review what changed, the questions still open, and what needs to happen next. Choose a priority to continue the conversation.</p></div><button class="btn ghost" onclick="home()">← Home</button></div><section class="meeting-list"><h2>Work to bring forward <span class="count-pill">${active.length}</span></h2>${active.map(p=>`<article class="meeting-priority"><h3>${esc(p.title)}</h3><div class="meeting-details"><div class="meeting-detail"><span class="meeting-label">What changed</span><p>${esc(p.since||"No recent update recorded.")}</p></div><div class="meeting-detail"><span class="meeting-label">Question still open</span><p>${esc((p.questions&&p.questions[0])||"No open question recorded.")}</p></div><div class="meeting-detail next"><span class="meeting-label">What happens next</span><p>${esc(p.next||"Decide on a next step together.")}</p></div></div><div class="meeting-actions"><button class="btn primary" onclick="openP(${p.id})">Continue this work →</button><button class="btn ghost" onclick="handoffFlow(${p.id})">Share with another team</button></div></article>`).join("")||`<div class="empty">No active priorities. Start a new question from the homepage.</div>`}</section>${paused.length?`<section class="meeting-list"><h2>Work to revisit later <span class="count-pill">${paused.length}</span></h2>${paused.map(p=>`<article class="meeting-priority"><h3>${esc(p.title)}</h3><p>${esc(p.next)}</p><button class="btn ghost" onclick="resumePriority(${p.id})">Resume this work</button></article>`).join("")}</section>`:""}`}
-function resumePriority(id){let p=D.priorities.find(x=>x.id===id);p.status="active";p.history.push([new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"}),"Priority resumed"]);save();openP(id)}
-function resourcesForWork(){let blocks=[],a=cur.areas.join(" ").toLowerCase();blocks.push(`<div class="resource"><b>Data Conversation Process</b>Focus → Observe → Explain → Plan.</div>`);if(a.includes("attendance"))blocks.push(`<div class="resource"><b>Attendance evidence</b>Use chronic absenteeism, patterns over time, scholars/groups driving the pattern, and grade/course/period/day patterns when relevant. Pair outcomes with barriers, supports, implementation, and change over time.</div>`);if(a.includes("academic"))blocks.push(`<div class="resource"><b>Academic evidence</b>Use relevant assessment, course, classroom, or skill-level evidence. Check whether the pattern is widespread or concentrated.</div>`);if(a.includes("behavior"))blocks.push(`<div class="resource"><b>Behavior / PBIS+ evidence</b>Look for setting, time, scholar/group, adult-practice, and implementation patterns before assuming a cause.</div>`);blocks.push(`<div class="resource"><b>GRPS data platforms</b>MI School Data · Our School Data · MEIS · Synergy</div><div class="resource"><b>Calendars</b>Use the Data Conversation Calendar and Assessment Data Calendar to see what evidence should be available now.</div>`);showModal(`<div class="label">Resources for this work</div><h2>Only what is relevant right now</h2>${blocks.join("")}<div class="row"><span></span><button class="btn primary" onclick="closeModal()">Back to the priority</button></div>`)}
-function moveToExplain(){showModal(`<div class="label">EXPLAIN</div><h2>Why might this be?</h2><div class="muted">Generate possibilities, test them against the evidence, and identify what would strengthen or weaken the explanation.</div><textarea class="input" id="ex1" placeholder="Most plausible explanation right now"></textarea><textarea class="input" id="ex2" placeholder="What evidence supports it?"></textarea><textarea class="input" id="ex3" placeholder="What would make the team question it?"></textarea><div class="row"><button class="btn ghost" onclick="closeModal()">Not ready</button><button class="btn primary" onclick="saveExplain()">Save explanation</button></div>`)}
-function saveExplain(){if(!ex1.value.trim())return alert("Add the team's current explanation.");cur.where="EXPLAIN — testing the team's explanation against the evidence.";cur.know+=" Current explanation: "+ex1.value.trim()+" Supporting evidence: "+ex2.value.trim();cur.questions=[ex3.value.trim()||"What additional evidence would strengthen or weaken this explanation?"];cur.next="Decide whether the explanation is strong enough to move into PLAN.";cur.history.push([new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"}),"EXPLAIN updated"]);save();closeModal();openP(cur.id)}
-function moveToPlan(){showModal(`<div class="label">PLAN</div><h2>Choose a next step that addresses what we found</h2><div class="muted">The response should match the reason the team believes is driving the pattern.</div><textarea class="input" id="pl1" placeholder="What will we try?"></textarea><input class="input" id="pl2" placeholder="Who or what is the response for?"><input class="input" id="pl3" placeholder="Who owns the next action?"><input class="input" id="pl4" placeholder="When will we review it?"><textarea class="input" id="pl5" placeholder="How will we check that we followed the plan?"></textarea><textarea class="input" id="pl6" placeholder="What change would show that the plan helped?"></textarea><div class="row"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="savePlan()">Save plan</button></div>`)}
-function savePlan(){if(!pl1.value.trim())return alert("Add what the team will try.");cur.where="PLAN — response selected and ready for implementation/review.";cur.tried.push([pl1.value.trim(),pl2.value.trim()||"To be clarified","Planned","Implementation: "+pl5.value.trim()+" Impact: "+pl6.value.trim()]);cur.moves=[[pl1.value.trim(),pl3.value.trim()||"Owner needed",pl4.value.trim()||"Review date needed"]];cur.next="At the next review, check implementation before judging impact.";cur.history.push([new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"}),"PLAN established"]);save();closeModal();openP(cur.id)}
-function attentionFor(p){let ph=phaseOf(p),q=(p.questions&&p.questions[0])||"",owner=(p.moves&&p.moves[0]&&p.moves[0][1])||"";if(p.status==="paused")return {kind:"waiting",label:"WAITING",why:p.next};if(ph===3&&/Owner needed|not yet assigned/i.test(owner))return {kind:"attn",label:"NEEDS AN OWNER",why:"A next move exists but ownership is not clear."};if(ph===3)return {kind:"ready",label:"READY TO CHECK RESULTS",why:"A response is underway; check implementation before impact."};if(/missing|gather|additional evidence|strengthen|weaken/i.test(q+" "+p.next))return {kind:"waiting",label:"NEED MORE INFORMATION",why:"Answer the open evidence question before selecting another response."};if(ph===2)return {kind:"attn",label:"LET’S TALK IT THROUGH",why:"The team is in EXPLAIN and has not yet established a plan."};return {kind:"attn",label:"STILL EXPLORING",why:"The pattern is still being clarified."}}
-function teamPulse(){let active=D.priorities.filter(p=>!p.status||p.status==="active");showModal(`<div class="label">TEAM CHECK-IN</div><h2>What needs our attention?</h2><div class="muted">This shows what is ready to discuss, what needs more information, and what is waiting on someone. Your team decides what to work on first.</div>${active.map(p=>{let a=attentionFor(p);return `<div class="resource ${a.kind}"><b>${esc(p.title)} · ${a.label}</b>${esc(a.why)}<div class="decisionline">${esc(p.next)}</div><div style="margin-top:7px"><button class="btn ghost smallbtn" onclick="closeModal();openP(${p.id})">Open priority</button></div></div>`}).join("")||`<div class="empty">No active priorities.</div>`}<div class="row"><span></span><button class="btn primary" onclick="closeModal()">Done</button></div>`)}
-function backupSettings(){showModal(`<div class="label">SAVE OR RESTORE YOUR WORK</div><h2>Keep a copy of your team’s work</h2><div class="backupbox">Your work is saved only in this browser. It will not automatically appear on another device, and clearing browser data could erase it. Download a copy regularly, especially while testing.</div><div class="section"><button class="btn primary" onclick="exportData()">Download a copy of our work</button><div style="height:8px"></div><label class="btn ghost" style="display:inline-block;cursor:pointer">Restore a saved copy<input type="file" accept=".json,application/json" onchange="importData(event)" style="display:none"></label></div><div class="row"><span></span><button class="btn ghost" onclick="closeModal()">Close</button></div>`)}
-function exportData(){let blob=new Blob([JSON.stringify(D,null,2)],{type:"application/json"}),u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=(D.team||"GRPS-Team").replace(/[^a-z0-9]+/gi,"_")+"_Team_Workspace_Save a copy.json";a.click();setTimeout(()=>URL.revokeObjectURL(u),500)}
-function importData(e){let f=e.target.files&&e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!x||!Array.isArray(x.priorities))throw 0;D=x;save();closeModal();home();alert("Team backup imported.");}catch(err){alert("That file is not a valid Team Workspace backup.");}};r.readAsText(f)}
-const CALENDAR={8:[['wida','Spring WIDA ACCESS','Compare English-language-development results by proficiency area and scholar group.','Our School Data / relevant GRPS assessment reports'],['state','Spring MSTEP / College Board / WIN Work Readiness','Identify grade, content and group patterns in released results.','Our School Data / MI School Data']],9:[['map','Fall NWEA MAP','Look at grade, skill and scholar-group patterns. Compare with classroom evidence.','Our School Data / NWEA'],['attendance','Chronic absenteeism','Which scholars or groups are missing school? Is the pattern changing?','Synergy'],['walk','Instructional walkthrough evidence','Compare classroom practices with achievement and other evidence.','GRPS walkthrough evidence']],10:[['board','Fall College Board','Look at course, grade and group patterns.','Our School Data'],['el','EL scholar growth','Compare growth patterns with access and instruction.','Relevant GRPS EL reports'],['attendance','Attendance','Look for patterns over time and across scholar groups.','Synergy'],['behavior','Behavior','Compare settings, timing, groups and adult responses.','Relevant GRPS behavior reports'],['walk','Instructional walkthroughs','Compare observed instruction with scholar outcomes.','GRPS walkthrough evidence'],['grades','Marking Period 1 grades','Compare course outcomes with attendance and other evidence.','Synergy']],11:[['index','School Index','Examine the published indicators relevant to the team’s question.','MI School Data'],['attendance','Attendance','Look for changing patterns and affected groups.','Synergy'],['behavior','Behavior','Compare settings, timing and groups.','Relevant GRPS behavior reports'],['walk','Instructional walkthroughs','Compare observed practices with outcomes.','GRPS walkthrough evidence']],12:[['index','School Index','Examine published indicators relevant to the question.','MI School Data'],['attendance','Attendance','Review changes over time and by group.','Synergy'],['behavior','Behavior','Look for changes in setting and timing.','Relevant GRPS behavior reports'],['walk','Instructional walkthroughs','Compare practices with outcomes.','GRPS walkthrough evidence']],1:[['grades','Marking Period 2 grades','Compare course and group patterns.','Synergy'],['map','Winter NWEA MAP','Compare fall-to-winter patterns by grade, skill and group.','Our School Data / NWEA'],['grad','Graduation rates','Review published cohort trends and group patterns.','Our School Data / MI School Data'],['attendance','Attendance','Look at patterns and changes over time.','Synergy'],['behavior','Behavior','Compare settings and groups.','Relevant GRPS behavior reports']],2:[['grad','Graduation rates','Review published cohort trends and group patterns.','Our School Data / MI School Data'],['attendance','Attendance','Look at patterns and changes.','Synergy'],['behavior','Behavior','Compare settings and groups.','Relevant GRPS behavior reports'],['walk','Instructional walkthroughs','Compare observed practices with outcomes.','GRPS walkthrough evidence']],3:[['grades','Marking Period 3 grades','Compare course and group patterns.','Synergy'],['attendance','Attendance','Look at patterns and changes.','Synergy'],['behavior','Behavior','Compare settings and groups.','Relevant GRPS behavior reports'],['walk','Instructional walkthroughs','Compare observed practices with outcomes.','GRPS walkthrough evidence']],4:[['state','Preliminary MSTEP','Check whether preliminary results are available for the relevant scholars.','GRPS assessment reporting'],['attendance','Attendance','Review patterns over time.','Synergy'],['behavior','Behavior','Compare settings and groups.','Relevant GRPS behavior reports'],['walk','Instructional walkthroughs','Compare observed practices with outcomes.','GRPS walkthrough evidence']],5:[['state','Preliminary MSTEP','Review available preliminary results with classroom evidence.','GRPS assessment reporting'],['map','Spring NWEA MAP','Compare growth and skill patterns with fall and winter.','Our School Data / NWEA'],['attendance','Attendance','Review patterns over time.','Synergy'],['behavior','Behavior','Compare settings and groups.','Relevant GRPS behavior reports'],['walk','Instructional walkthroughs','Compare observed practices with outcomes.','GRPS walkthrough evidence']],6:[['grades','Marking Period 4 / end-of-year grades','Compare year-end course outcomes with earlier patterns.','Synergy'],['attendance','Attendance','Review full-year chronic absenteeism and group patterns.','Synergy'],['behavior','Behavior','Review full-year patterns by setting and group.','Relevant GRPS behavior reports']]};
-const DATA_LINKS=[['Our School Data','https://ourschooldata.org/Identity/Account/LoginEmail?returnUrl=%2F'],['Synergy','https://synergy.grps.org/'],['MI School Data','https://www.mischooldata.org/'],['MEIS','https://mdoe.state.mi.us/meis/login.aspx']];
-let calDraft=null;
-function dataNow(priorityId){let p=typeof priorityId==='number'?D.priorities.find(x=>x.id===priorityId):cur&&D.priorities.includes(cur)?cur:null;let m=new Date().getMonth()+1,month=new Date().toLocaleDateString('en-US',{month:'long'}),items=CALENDAR[m]||[];calDraft={priorityId:p?p.id:null,selected:[...((p&&p.calendarSelection&&p.calendarSelection.month===m)?p.calendarSelection.ids:[])],month:m,notes:(p&&p.calendarSelection&&p.calendarSelection.month===m)?p.calendarSelection.notes:'',available:(p&&p.calendarSelection&&p.calendarSelection.month===m)?p.calendarSelection.available:{}};renderDataCalendar()}
-function renderDataCalendar(){let d=calDraft,m=d.month,p=D.priorities.find(x=>x.id===d.priorityId),items=CALENDAR[m]||[],month=new Date(2026,m-1,1).toLocaleDateString('en-US',{month:'long'});showModal(`<div class="label">GRPS DATA CONVERSATION CALENDAR</div><h2>${month}: What data should we look at?</h2><p class="muted">Start with your team's question. Select only the evidence that will help you understand it.</p><label class="cal-label" for="cal-priority">1. Which priority are we working on?</label><select class="input" id="cal-priority" onchange="calendarChangePriority(this.value)"><option value="">Exploring data — no priority selected</option>${D.priorities.filter(x=>x.status!=='closed').map(x=>`<option value="${x.id}" ${x.id===d.priorityId?'selected':''}>${esc(x.title)}</option>`).join('')}</select>${p?`<div class="cal-context"><b>Our question</b><div>${esc(p.issue)}</div><small>Areas: ${p.areas.map(esc).join(' + ')||'Not specified'}</small></div>`:`<p class="sourcehint">Choose a priority to save your selections and observations directly to that work.</p>`}<div class="cal-label">2. Which evidence will help?</div><div class="cal-list">${items.map(x=>`<div class="cal-item"><label class="cal-check"><input type="checkbox" ${d.selected.includes(x[0])?'checked':''} onchange="calendarToggle('${x[0]}',this.checked)"><span><b>${esc(x[1])}</b><small>${esc(x[2])}</small><em>Likely source: ${esc(x[3])}</em></span></label>${d.selected.includes(x[0])?`<div class="cal-availability"><label for="cal-av-${x[0]}">Can your team access this evidence?</label><select id="cal-av-${x[0]}" onchange="calendarAvailability('${x[0]}',this.value)"><option value="" ${!d.available[x[0]]?'selected':''}>Not checked yet</option><option value="yes" ${d.available[x[0]]==='yes'?'selected':''}>Yes — ready to review</option><option value="no" ${d.available[x[0]]==='no'?'selected':''}>Not available yet</option><option value="unsure" ${d.available[x[0]]==='unsure'?'selected':''}>Not sure — need to check</option></select></div>`:''}</div>`).join('')||'<p>No specific items are listed for this month in the GRPS source calendar. Choose a priority and use its question to identify relevant evidence.</p>'}</div><div class="cal-label">3. What do we notice or still need to find out?</div><textarea class="input" id="cal-notes" rows="3" placeholder="For example: Compare the same scholars across attendance and literacy results, and check which data are available.">${esc(d.notes)}</textarea><div class="cal-links"><b>Open GRPS data sources</b><div>${DATA_LINKS.map(([n,u])=>`<a class="linkbtn" href="${u}" target="_blank" rel="noopener noreferrer">${n} ↗</a>`).join('')}</div></div><details class="cal-dates"><summary>View assessment dates and release reminders</summary><p>Fall MAP: early–mid September results. Winter MAP: mid–late January. Spring MAP: early May. Fall College Board: later October. Spring WIDA ACCESS: late June–early July. MSTEP / MI-Access: preliminary results after testing; later public release. Confirm actual availability in the relevant GRPS system.</p></details><div class="cal-footer"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="calendarSave()" ${d.selected.length?'':'disabled'}>${p?'Save to this priority':'Choose evidence to continue'}</button></div>`)}
-function calendarChangePriority(id){calDraft.notes=document.getElementById('cal-notes').value;calDraft.priorityId=id?Number(id):null;let p=D.priorities.find(x=>x.id===calDraft.priorityId);if(p&&p.calendarSelection&&p.calendarSelection.month===calDraft.month){calDraft.selected=[...p.calendarSelection.ids];calDraft.notes=p.calendarSelection.notes||'';calDraft.available={...p.calendarSelection.available}}renderDataCalendar()}
-function calendarToggle(id,yes){calDraft.notes=document.getElementById('cal-notes').value;calDraft.selected=yes?[...new Set([...calDraft.selected,id])]:calDraft.selected.filter(x=>x!==id);renderDataCalendar()}
-function calendarAvailability(id,value){calDraft.available[id]=value}
-function calendarSave(){let d=calDraft;if(!d)return;d.notes=document.getElementById('cal-notes').value;let p=D.priorities.find(x=>x.id===d.priorityId);if(!p)return alert('Choose a priority so the team can return to this evidence at the next meeting.');if(!d.selected.length)return alert('Select at least one source of evidence.');let items=CALENDAR[d.month]||[],names=d.selected.map(id=>items.find(x=>x[0]===id)).filter(Boolean).map(x=>x[1]);p.calendarSelection={month:d.month,ids:[...d.selected],available:{...d.available},notes:d.notes,date:new Date().toISOString()};p.evidence=p.evidence||{};p.evidence['Selected for review']=names.join('; ');if(d.notes.trim())p.evidence['Calendar observations / questions']=d.notes.trim();let missing=d.selected.filter(id=>d.available[id]==='no'||d.available[id]==='unsure');if(missing.length){D.parking=D.parking||[];let missingNames=missing.map(id=>items.find(x=>x[0]===id)).filter(Boolean).map(x=>x[1]);D.parking.push({q:'Check access to: '+missingNames.join(', '),owner:'Assign at next team meeting',next:'Return to '+p.title+' once evidence is available',priorityId:p.id});p.questions=p.questions||[];p.questions.push('Check access to '+missingNames.join(', '));}p.history=p.history||[];p.history.push([new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}),'Selected evidence for review: '+names.join(', ')]);save();cur=p;closeModal();openP(p.id)}
-function dataForPriority(){let a=cur.areas.join(" ").toLowerCase(),cards=[];if(a.includes("attendance"))cards.push(["Attendance","Chronic absenteeism; patterns over time; scholars/groups driving the pattern; grade/course/period/day patterns when relevant.","Synergy"]);if(a.includes("academic"))cards.push(["Academic","Use the assessment, course, classroom, skill, or grade evidence that directly answers the team's question.","Our School Data · Synergy · MI School Data"]);if(a.includes("behavior"))cards.push(["Behavior / PBIS+","Compare setting, time, scholar/group, adult-practice, and implementation patterns.","Synergy / applicable GRPS behavior evidence"]);if(a.includes("experience"))cards.push(["Scholar / Family / Staff Experience","Use experience evidence to test—not replace—the outcome and implementation evidence.","GRPS survey / local feedback evidence"]);if(!cards.length)cards.push(["Start with the question","Identify the 2–3 pieces of evidence most likely to answer this priority's question.","Use the relevant GRPS platform"]);showModal(`<div class="label">DATA FOR THIS QUESTION</div><h2>Which information will help answer our question?</h2><div class="muted">You do not need every report. Start with the two or three pieces of information that best answer your question.</div>${cards.map(c=>`<div class="nowcard"><h3>${esc(c[0])}</h3><div>${esc(c[1])}</div><div class="micro" style="margin-top:5px"><b>Likely source:</b> ${esc(c[2])}</div></div>`).join("")}<div class="section"><div class="label">GRPS data platforms</div><a class="linkbtn" href="https://www.mischooldata.org/" target="_blank">MI School Data ↗</a><a class="linkbtn" href="https://ourschooldata.org/Identity/Account/LoginEmail?returnUrl=%2F" target="_blank">Our School Data ↗</a><a class="linkbtn" href="https://mdoe.state.mi.us/meis/login.aspx" target="_blank">MEIS ↗</a><a class="linkbtn" href="https://synergy.grps.org/" target="_blank">Synergy ↗</a></div><div class="row"><button class="btn ghost" onclick="dataNow()">What's timely now?</button><button class="btn primary" onclick="closeModal()">Back to priority</button></div>`)}
-function originalTools(){
- const resources=[
-  {name:"Data Conversation Process",desc:"Use the original GRPS Focus → Observe → Explain → Plan guide during a team discussion.",links:[["Open process guide","https://drive.google.com/file/d/1lFI0q-e718l796YGfvoxIiQ8pBVU12Fq/view"]]},
-  {name:"Monthly Data Review Cycle",desc:"Open the GRPS monthly form to document the building's review.",links:[["Open monthly review form","https://docs.google.com/document/d/1y8PQ4Gz3jZ4JGxwAkcvWBiuTwp2N_n1RjBjWJqSKmAg/edit"]]},
-  {name:"Data Conversation Calendar",desc:"See the original GRPS monthly guide for which evidence to consider.",links:[["Open monthly calendar","https://drive.google.com/file/d/1R-kAmg8PRVNoeJeiIOOJ3cWSY5qGH_ci/view"]]},
-  {name:"Assessment Data Calendar",desc:"Check testing and expected assessment-data release windows.",links:[["Open assessment calendar","https://drive.google.com/file/d/1CN_Sp69Zt2PCKu4GLBBMowZY24wbqzgV/view"]]},
-  {name:"Action Step Parking Lot",desc:"Track unresolved questions, data needs, owners, next steps and findings.",links:[["Open original parking lot","https://docs.google.com/document/d/1kLJQg1Aj_8bke24y0Lcr-1kjvc_pb7VNw2YmOQBDJNE/edit"]]},
-  {name:"GRPS Meeting Agenda",desc:"Use the original meeting roles, discussion structure and closing routine.",links:[["Open meeting agenda","https://docs.google.com/document/d/1DINTmpLIgxKqS35NXrZiG2ML3DqfEP-WS53-Vx1SYpY/edit"]]},
-  {name:"Data Platform Links",desc:"Open the GRPS directory of data platforms, or go directly to the platform you need.",links:[["Open GRPS platform directory","https://docs.google.com/document/d/1bUxMNlxlrCgzPIN9cD4wwsDCAvJ4TCHPGB8BIyD7CdE/edit"],["MI School Data","https://www.mischooldata.org/"],["Our School Data","https://ourschooldata.org/Identity/Account/LoginEmail?returnUrl=%2F"],["MEIS","https://mdoe.state.mi.us/meis/login.aspx"],["Synergy","https://synergy.grps.org/"]]}
- ];
- showModal(`<div class="label">GRPS resources</div><h2>Open the resource you need</h2><p class="muted">Select a resource below to open the original GRPS document in a new tab. Some GRPS documents require district access.</p><div class="resource-list">${resources.map(r=>`<div class="resource-link-card"><h3>${esc(r.name)}</h3><p>${esc(r.desc)}</p><div class="resource-link-actions">${r.links.map(([label,url])=>`<a class="btn ghost" href="${url}" target="_blank" rel="noopener noreferrer" aria-label="${esc(label)} (opens in a new tab)">${esc(label)} ↗</a>`).join('')}</div></div>`).join('')}</div><div class="row"><span></span><button class="btn primary" onclick="closeModal()">Back to the work</button></div>`)
+
+/* --- Store --- */
+let S;
+function blank(){ return {version:2,school:'',team:'',cail:'',sample:false,priorities:[],meetings:[],parking:[]}; }
+function load(){
+  try { const v = JSON.parse(localStorage.getItem(KEY)||'null'); if (v && v.version===2) return normalize(v); } catch(e){}
+  try { const old = JSON.parse(localStorage.getItem(OLD_KEY)||'null'); if (old && Array.isArray(old.priorities)) return migrate(old); } catch(e){}
+  return blank();
 }
-function showModal(x){modal.className="modal";modal.innerHTML=`<div class="modalbox" role="dialog" aria-modal="true"><button type="button" class="modal-x" onclick="closeModal()" aria-label="Close">×</button>${x}</div>`;const f=modal.querySelector(".modal-x");if(f)f.focus()}function closeModal(){modal.className="";modal.innerHTML=""}document.addEventListener("keydown",e=>{if(e.key==="Escape"&&modal.className)closeModal()});modal.addEventListener("click",e=>{if(e.target===modal)closeModal()});
-// Record the previous full page. Dialogs close first when Back is pressed.
-let navCurrent={name:"home",args:[]},navHistory=[],navRestoring=false;
-for(const name of ["home","openP","today","meetingPrep"]){
-  const original=window[name];
-  window[name]=function(...args){
-    if(!navRestoring && (navCurrent.name!==name || JSON.stringify(navCurrent.args)!==JSON.stringify(args))){
-      navHistory.push({...navCurrent});if(navHistory.length>30)navHistory.shift();
-    }
-    navCurrent={name,args};try{original(...args)}catch(error){console.error("Navigation failed:",name,error);alert("Unable to open this page. Your saved work is unchanged. Please return Home and try again.")}
-  };
+function normalize(v){
+  const b = blank();
+  const x = Object.assign(b, v);
+  x.priorities = (x.priorities||[]).map(normP);
+  x.meetings = (x.meetings||[]).map(m => Object.assign({roles:{},datasets:[],actions:[],objectives:[]}, m));
+  x.parking = x.parking||[];
+  return x;
 }
-function navHome(){closeModal();navHistory=[];navRestoring=true;home();navRestoring=false;window.scrollTo(0,0)}
-function navBack(){
-  if(modal.classList.contains("modal")){closeModal();return}
-  const previous=navHistory.pop();
-  navRestoring=true;
-  if(previous && typeof window[previous.name]==="function")window[previous.name](...previous.args);
-  else home();
-  navRestoring=false;window.scrollTo(0,0);
+function normP(p){
+  return Object.assign({id:uid(),title:'Untitled priority',areas:[],issue:'',know:'',since:'',next:'',stage:'focus',status:'active',evidence:{},tried:[],questions:[],history:[]}, p);
 }
-home();
-</script><nav class="nav-dock" aria-label="Page navigation"><button type="button" id="navBack" onclick="navBack()" aria-label="Go back to the previous page">← Back</button><button type="button" class="nav-home" onclick="navHome()" aria-label="Return to homepage">⌂ Home</button></nav></body></html>
+function stageFromOld(p){
+  const w = String(p.where||'');
+  if (/OBSERVE/i.test(w)) return 'observe';
+  if (/FOCUS/i.test(w)) return 'focus';
+  if (/EXPLAIN|understanding/i.test(w)) return 'explain';
+  if (p.tried && p.tried.length) return 'monitor';
+  return 'explain';
+}
+function migrate(old){
+  // Bring work saved by the previous version forward without losing anything.
+  const x = blank();
+  x.team = old.team && old.team !== 'School Team' ? old.team : '';
+  const seedTitles = ['Grade 9 Success','Grade 3 Literacy','Climate & Belonging'];
+  x.sample = old.priorities.length === 3 && old.priorities.every((p,i)=>p.title===seedTitles[i]) && !(old.parking||[]).length;
+  x.priorities = old.priorities.map(p => normP(Object.assign({}, p, {
+    id: String(p.id), stage: stageFromOld(p),
+    status: p.status==='closed' ? 'closed' : p.status==='paused' ? 'paused' : 'active',
+    history: (p.history||[]).map(h => Array.isArray(h) ? {date:'', label:h[0], text:h[1]} : h)
+  })));
+  x.parking = (old.parking||[]).map(k => ({id:uid(), q:k.q, owner:k.owner||'', next:k.next||'', answer:'', status:'open', created:todayISO()}));
+  return x;
+}
+let saveT;
+function save(quiet){
+  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){ toast('Could not save in this browser. Download a copy from Settings.'); return; }
+  if (!quiet) { const el=$('#saved'); if(el){ el.classList.add('show'); clearTimeout(saveT); saveT=setTimeout(()=>el.classList.remove('show'),1200);} }
+}
+
+/* --- Sample work for exploring --- */
+function sampleData(){
+  const x = blank();
+  x.sample = true; x.school = 'Sample Elementary'; x.team = 'Instructional Leadership Team'; x.cail = 'Maleika Brown';
+  x.priorities = [
+    normP({id:'s1',title:'Grade 3 Literacy',areas:['Academics','Attendance'],stage:'monitor',
+      issue:'Which Grade 3 scholars are not yet decoding multisyllabic words, and is targeted small-group instruction closing the gap?',
+      know:'Fall MAP and weekly HMH checks point to the same 22 scholars. Small-group instruction started Oct. 6. Results improved in three classrooms and stayed flat in one.',
+      since:'Weekly checks improved for 15 of 22 scholars; one classroom differs from the pattern.',
+      next:'Compare how small groups run in each classroom before changing the strategy.',
+      evidence:{Academics:'Weekly skill checks improving overall.',Attendance:'4 of the 22 scholars are chronically absent.',Implementation:'One classroom has had small groups 2 of 4 planned days.'},
+      tried:[['Targeted small-group phonics','22 identified scholars','Underway since Oct. 6','Improvement in 3 of 4 classrooms.']],
+      questions:['What is different about how small groups run in the classroom with flat results?'],
+      history:[{date:'2026-09-15',text:'Concern identified from fall MAP'},{date:'2026-09-29',text:'Narrowed to multisyllabic decoding'},{date:'2026-10-06',text:'Small-group response started'},{date:'2026-10-20',text:'Classroom variation identified'}]}),
+    normP({id:'s2',title:'Attendance & Belonging',areas:['Attendance','Behavior / PBIS+','Scholar experience'],stage:'explain',
+      issue:'Why are Monday and Friday absences concentrated among Grade 4 and 5 scholars?',
+      know:'The pattern is strongest on Mondays and Fridays. Behavior referrals overlap for some of the same scholars. Scholar voice has not been gathered yet.',
+      since:'Family Support Specialist calls started with 12 families.',
+      next:'Hold short scholar listening conversations before choosing an intervention.',
+      evidence:{Attendance:'Monday and Friday absences are about twice the midweek rate.','Behavior / PBIS+':'Overlap with recess-related referrals.'},
+      questions:['What do scholars say makes Mondays and Fridays different?'],
+      history:[{date:'2026-09-15',text:'Overlap identified'},{date:'2026-10-20',text:'Paused before choosing an intervention'}]})
+  ];
+  const a1={id:uid(),what:'Observe small groups in all four Grade 3 classrooms',who:'Principal and literacy coach',when:'By Nov. 7',monitor:'Walkthrough notes using the small-group look-fors',success:'Every classroom runs small groups 4 days a week',priorityId:'s1',status:'done'};
+  const a2={id:uid(),what:'Listening conversations with 10 Grade 4–5 scholars',who:'School social worker',when:'By Nov. 14',monitor:'Themes from conversations',success:'We can name two or three reasons scholars give',priorityId:'s2',status:'progress'};
+  const a3={id:uid(),what:'Ask A&E for HMH weekly results by scholar group',who:'Literacy coach',when:'Before November meeting',monitor:'Report received',success:'We can see results by scholar group',priorityId:'s1',status:'open'};
+  x.meetings = [{id:'m-oct',date:'2026-10-20',status:'complete',formSubmitted:true,
+    roles:{facilitator:'Principal',timekeeper:'Literacy coach',noteTaker:'Grade 3 lead',participants:'Principal, literacy coach, Grade 3 and 4 leads, social worker'},
+    objectives:['Review last meeting’s next steps and outstanding tasks','Data Conversation Process with 2–3 data pieces'],checkin:'',
+    datasets:[{name:'Chronic absenteeism',group:'Grades 4–5',priorityId:'s2',focus:'I predict absences cluster on certain days.',observe:'I notice Monday and Friday absences are about twice the midweek rate for Grades 4–5.',explain:'Family schedules? Transportation? How scholars experience those days? We need scholar voice.',plan:'Listening conversations before choosing an intervention.'},
+              {name:'Fall NWEA MAP',group:'Grade 3',priorityId:'s1',focus:'I wonder whether small groups are reaching the scholars who need decoding support.',observe:'15 of 22 identified scholars improved on weekly checks. One classroom is flat.',explain:'Small groups ran 2 of 4 planned days in that classroom.',plan:'Observe small groups in every classroom.'}],
+    actions:[a1,a2,a3],bring:'Walkthrough notes from small groups and themes from the scholar conversations.',notes:'',support:'HMH weekly results by scholar group from A&E.',plus:'We stayed in Observe longer and it helped.',delta:'Send data to the team two days ahead.'}];
+  x.parking = [
+    {id:uid(),q:'Can we see M-STEP results for our economically disadvantaged scholars?',owner:'Principal',next:'Ask A&E',answer:'',status:'open',created:'2026-10-20'},
+    {id:uid(),q:'Do incentives change Monday attendance?',owner:'Whole team',next:'Look for research before trying anything',answer:'',status:'open',created:'2026-10-20'},
+    {id:uid(),q:'Who reviews our monthly form?',owner:'Principal',next:'Ask CAIL',answer:'Addie Collins and Peter (A&E) review submissions and share them with CAILs.',status:'answered',created:'2026-09-15'}];
+  return x;
+}
+
+/* --- Derived helpers --- */
+const activeP = () => S.priorities.filter(p => p.status==='active');
+const findP = id => S.priorities.find(p => String(p.id)===String(id));
+const findM = id => S.meetings.find(m => m.id===id);
+const sortedMeetings = () => [...S.meetings].sort((a,b)=> (b.date||'').localeCompare(a.date||''));
+const allActions = () => S.meetings.flatMap(m => (m.actions||[]).filter(a=>a.what).map(a => ({...a, _m:m.id, _date:m.date})));
+const openActions = () => allActions().filter(a => a.status!=='done' && a.status!=='dropped');
+const openParking = () => S.parking.filter(k => k.status!=='answered');
+function thisMonthMeeting(){ const k = monthKey(); return sortedMeetings().find(m => monthKey(m.date)===k); }
+function previousMeeting(m){ return sortedMeetings().find(x => x.id!==m.id && (x.date||'') < (m.date||'9')); }
+function stageIndex(s){ return Math.max(0, STAGES.findIndex(x=>x[0]===s)); }
+function miniTrack(p){ const i=stageIndex(p.stage); return `<span class="mini-track" aria-label="Stage: ${STAGES[i][1]}">${STAGES.map((_,j)=>`<i class="${j<=i?'on':''}"></i>`).join('')}</span>`; }
+const STATUS_TXT = {open:'Not started',progress:'In progress',done:'Done',dropped:'Dropped'};
+function statusPill(s){ const c={done:'ok',progress:'blue',dropped:'',open:'warn'}[s||'open']; return `<span class="pill ${c}">${STATUS_TXT[s||'open']}</span>`; }
+
+/* --- Router --- */
+const app = $('#app');
+function route(){
+  stopTimer();
+  const parts = (location.hash.replace(/^#\/?/,'')||'').split('/');
+  const [view, a, b] = parts;
+  const views = {'':home, meeting:meetingRoute, priorities:prioritiesView, priority:()=>priorityView(a), parking:parkingView, data:dataView, resources:resourcesView, settings:settingsView, summary:()=>summaryView(a), form:()=>summaryView(a,true)};
+  (views[view]||home)(a,b);
+  document.querySelectorAll('.nav a').forEach(el => {
+    const h = el.getAttribute('href').replace('#/','');
+    const cur = view==='summary'||view==='form' ? 'meeting' : view==='priority' ? 'priorities' : view;
+    if (h===cur) el.setAttribute('aria-current','page'); else el.removeAttribute('aria-current');
+  });
+  $('#brand-sub').textContent = S.school ? S.school + (S.team ? ' · ' + S.team : '') : 'Monthly data review cycle';
+}
+function go(h){ if (location.hash===h) route(); else location.hash = h; window.scrollTo(0,0); }
+window.addEventListener('hashchange', () => { route(); window.scrollTo(0,0); });
+
+/* --- Sample banner --- */
+function sampleBanner(){
+  if (!S.sample) return '';
+  return `<div class="banner noprint"><span><b>You’re looking at sample work.</b> Explore freely. When your team is ready, clear it and start with your own building.</span><button class="btn ghost sm" onclick="clearSample()">Clear sample and start fresh</button></div>`;
+}
+function clearSample(){
+  if (!confirm('Clear the sample work and start with an empty workboard?')) return;
+  S = blank(); save(true); toast('Sample cleared. Your workboard is ready.'); go('#/');
+}
+function loadSample(){ S = sampleData(); save(true); toast('Sample work loaded.'); go('#/'); }
+
+/* ===================== HOME ===================== */
+function home(){
+  const mName = MONTHS[new Date().getMonth()];
+  const m = thisMonthMeeting();
+  const st = !m ? 0 : m.status!=='complete' ? 1 : !m.formSubmitted ? 2 : 3;
+  const headline = ['Time for ' + mName + '’s data review','Your ' + mName + ' meeting is in progress',mName + '’s meeting is done. One step left.', mName + '’s cycle is complete'][st];
+  const sub = [
+    'Run the 90-minute Rolling Agenda here. Your notes become the monthly form answers, so you only write things once.',
+    'Pick up where you left off. Everything you typed is saved.',
+    'Your answers are ready. Copy them into the Monthly Data Review Cycle Form for your CAIL.',
+    'Nice work. Keep next steps moving and add questions to the parking lot as they come up.'][st];
+  const btn = [
+    `<button class="btn warm" onclick="newMeeting()">Start ${mName}’s meeting</button>`,
+    `<a class="btn warm" href="#/meeting/${m&&m.id}">Continue the meeting</a>`,
+    `<a class="btn warm" href="#/form/${m&&m.id}">Finish the monthly form</a>`,
+    `<a class="btn ghost" href="#/summary/${m&&m.id}">View meeting summary</a>`][st];
+  const cyc = [['Prepare','Pick 2–3 data sets'],['Meet','90-minute Rolling Agenda'],['Submit','Monthly form for your CAIL'],['Follow through','Next steps before next month']];
+  const cycState = i => st===3 ? (i<3?'done':'now') : i<st ? 'done' : i===st ? 'now' : '';
+  const acts = openActions().sort((a,b)=>(a._date||'').localeCompare(b._date||''));
+  const park = openParking();
+  const monthData = CAL[new Date().getMonth()+1]||[];
+  const setup = !S.school ? `<div class="card" style="margin-bottom:22px"><div class="cardhead"><h2>Set up your workboard</h2><span class="pill">Takes 20 seconds</span></div>
+    <p class="muted">This fills in the building and CAIL on your monthly form so you don’t retype them each month.</p>
+    <div class="fgrid">
+      <div><label class="f" for="su-school">Building</label><input class="in" id="su-school" placeholder="Example: Coit Elementary"></div>
+      <div><label class="f" for="su-cail">CAIL</label><input class="in" id="su-cail" list="cail-list" placeholder="Choose or type"></div>
+      <div><label class="f" for="su-team">Team name <small>Optional. ILT, PBIS team, Grade 9 team…</small></label><input class="in" id="su-team"></div>
+    </div><datalist id="cail-list">${CAILS.map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
+    <div class="btnrow" style="margin-top:16px"><button class="btn primary" onclick="saveSetup()">Save</button>${S.priorities.length||S.meetings.length?'':`<button class="btn quiet" onclick="loadSample()">Or explore with sample work first</button>`}</div></div>` : '';
+
+  app.innerHTML = `${sampleBanner()}
+  <section class="month">
+    <div class="month-main">
+      <div class="kicker">${esc(S.school||'Your building')} · ${mName} cycle</div>
+      <h1>${headline}</h1>
+      <p>${sub}</p>
+      <div class="btnrow" style="margin-top:18px">${btn}${st===0?`<a class="btn quiet" href="#/data">See ${mName}’s data</a>`:''}</div>
+      <p class="small muted" style="margin-top:16px">This cycle can run inside a meeting you already hold, such as an ILT, PLC, PBIS, or MTSS meeting. It doesn’t need to be another meeting.</p>
+    </div>
+    <div class="month-side" aria-label="Monthly cycle">
+      <h3>The monthly cycle</h3>
+      <ol class="cycle">${cyc.map((c,i)=>`<li class="${cycState(i)}"><span class="dot">${cycState(i)==='done'?'✓':i+1}</span><span>${c[0]}<small>${c[1]}</small></span></li>`).join('')}</ol>
+    </div>
+  </section>
+  ${setup}
+  <div class="grid g3">
+    <section class="card">
+      <div class="cardhead"><h2>Next steps<span class="count">${acts.length}</span></h2></div>
+      ${acts.length ? `<ul class="list">${acts.slice(0,5).map(actionItem).join('')}</ul>${acts.length>5?`<p class="small muted" style="margin-top:8px">${acts.length-5} more in meeting summaries.</p>`:''}`
+        : `<div class="empty">No open next steps. Next steps you create in a meeting show up here so the team can check them off.</div>`}
+    </section>
+    <section class="card">
+      <div class="cardhead"><h2>Parking lot<span class="count">${park.length}</span></h2><a class="btn quiet sm" href="#/parking">Open</a></div>
+      ${park.length ? `<ul class="list">${park.slice(0,4).map(k=>`<li><div class="what" style="font-weight:650;color:var(--deep)">${esc(k.q)}</div><div class="meta">${k.owner?`<b>${esc(k.owner)}</b> · `:''}${esc(k.next||'No next step yet')}</div></li>`).join('')}</ul>`
+        : `<div class="empty">Questions, data needs, and wonderings. Nothing has to be solved today.</div>`}
+      <button class="btn ghost sm" style="margin-top:12px" onclick="quickPark()">+ Add a question</button>
+    </section>
+    <section class="card">
+      <div class="cardhead"><h2>${mName}’s data</h2><a class="btn quiet sm" href="#/data">Calendar</a></div>
+      ${monthData.length ? `<ul class="list">${monthData.map(d=>`<li><div style="font-weight:650;color:var(--deep)">${esc(d[1])}</div><div class="meta">${esc(d[2])}</div></li>`).join('')}</ul>` : `<div class="empty">No monthly cycle in July. Use this time to plan August’s first meeting.</div>`}
+    </section>
+  </div>
+  <section class="card" style="margin-top:16px">
+    <div class="cardhead"><h2>Our priorities<span class="count">${activeP().length}</span></h2><div class="btnrow"><button class="btn ghost sm" onclick="newPriority()">+ New priority</button><a class="btn quiet sm" href="#/priorities">All priorities</a></div></div>
+    ${activeP().length ? `<div>${activeP().map(priorityRow).join('')}</div>` : `<div class="empty">A priority is a question your team keeps working on across months, such as Grade 9 first-hour attendance. Data conversations, next steps, and history stay together.</div>`}
+  </section>
+  ${S.meetings.length ? `<section class="card" style="margin-top:16px"><div class="cardhead"><h2>Past meetings</h2></div>${sortedMeetings().slice(0,6).map(meetingRow).join('')}</section>`:''}`;
+}
+function saveSetup(){
+  S.school = $('#su-school').value.trim(); S.cail = $('#su-cail').value.trim(); S.team = $('#su-team').value.trim();
+  if (!S.school) { toast('Add your building name.'); $('#su-school').focus(); return; }
+  save(true); toast('Saved.'); route();
+}
+function actionItem(a){
+  const p = a.priorityId && findP(a.priorityId);
+  return `<li class="act ${a.status==='done'?'isdone':''}"><input type="checkbox" aria-label="Mark done: ${esc(a.what)}" ${a.status==='done'?'checked':''} onchange="setActionStatus('${a._m}','${a.id}',this.checked?'done':'open')">
+    <div><div class="what">${esc(a.what)}</div><div class="meta">${a.who?`<b>${esc(a.who)}</b>`:'No owner yet'}${a.when?` · ${esc(a.when)}`:''}${p?` · ${esc(p.title)}`:''}</div></div></li>`;
+}
+function setActionStatus(mid, aid, status){
+  const m = findM(mid); const a = m && m.actions.find(x=>x.id===aid); if(!a) return;
+  a.status = status; save(true);
+  if (status==='done') {
+    toast('Marked done.');
+    const p = a.priorityId && findP(a.priorityId);
+    if (p) { p.history.push({date:todayISO(), text:'Done: '+a.what}); save(true); }
+  }
+  route();
+}
+function priorityRow(p){
+  const i = stageIndex(p.stage);
+  return `<div class="prow"><div><h3><a href="#/priority/${p.id}">${esc(p.title)}</a></h3>
+    <p><span class="pill blue">${STAGES[i][1]}</span> ${miniTrack(p)}</p>
+    <p><b>Next:</b> ${esc(p.next||'Decide a next step together.')}</p></div>
+    <a class="btn ghost sm" href="#/priority/${p.id}">Open</a></div>`;
+}
+function meetingRow(m){
+  const label = m.status!=='complete' ? '<span class="pill warn">In progress</span>' : m.formSubmitted ? '<span class="pill ok">Form submitted</span>' : '<span class="pill red">Form not submitted</span>';
+  return `<div class="mrow"><div><b style="color:var(--deep)">${fmtDate(m.date)}</b> <span class="muted">· ${(m.datasets||[]).filter(d=>d.name).map(d=>esc(d.name)).join(', ')||'No data sets yet'}</span></div>
+    <div class="btnrow">${label}<a class="btn quiet sm" href="${m.status==='complete'?'#/summary/'+m.id:'#/meeting/'+m.id}">${m.status==='complete'?'Summary':'Continue'}</a></div></div>`;
+}
+
+/* ===================== MEETING ===================== */
+let M = null, mStep = 0, dsIdx = 0, phase = 'focus';
+function meetingRoute(id, step){
+  if (!id) {
+    const m = thisMonthMeeting();
+    if (m) return go(m.status==='complete' ? '#/summary/'+m.id : '#/meeting/'+m.id);
+    return meetingStart();
+  }
+  M = findM(id);
+  if (!M) return go('#/meeting');
+  if (step!==undefined) mStep = Math.min(4, Math.max(0, +step||0));
+  else mStep = M.step||0;
+  meetingView();
+}
+function meetingStart(){
+  const mName = MONTHS[new Date().getMonth()];
+  app.innerHTML = `${sampleBanner()}<div class="pagehead"><div><div class="kicker">Rolling Agenda · 90 minutes</div><h1>Run ${mName}’s data review</h1>
+    <p class="lede">The workboard walks the team through the same agenda as the GRPS Rolling Agenda. When you finish, your notes are already written as answers to the monthly form.</p></div></div>
+    <div class="grid g2">
+      <div class="card"><h2>What you’ll do</h2><ul class="list" style="margin-top:10px">${MSTEPS.slice(0,4).map(s=>`<li><b style="color:var(--deep)">${s.name}</b>${s.min?` · ${s.min} min`:''}<div class="meta">${s.sub}</div></li>`).join('')}</ul></div>
+      <div class="card"><h2>Before you start</h2><ul class="list" style="margin-top:10px">
+        <li>Choose 2–3 data sets from <a href="#/data">${mName}’s data calendar</a>.</li>
+        <li>Assign a facilitator, timekeeper, and note taker.</li>
+        <li>Project this page or have the note taker type. It works on a laptop, iPad, or phone.</li></ul>
+        <button class="btn warm" style="margin-top:16px" onclick="newMeeting()">Start the meeting</button></div>
+    </div>`;
+}
+function newMeeting(){
+  const prev = sortedMeetings()[0];
+  const m = {id:uid(), date:todayISO(), status:'draft', step:0, formSubmitted:false,
+    roles:{facilitator:'',timekeeper:'',noteTaker:'',participants: prev ? prev.roles.participants||'' : ''},
+    objectives:[ prev ? 'Review last meeting’s next steps and outstanding tasks' : 'Review building and district goals', 'Data Conversation Process with 2–3 data pieces'],
+    checkin:'', backNotes:'', datasets:[], actions:[], bring:'', notes:'', support:'', plus:'', delta:''};
+  S.meetings.push(m); save(true);
+  dsIdx = 0; phase = 'focus';
+  go('#/meeting/'+m.id+'/0');
+}
+function setStep(i){ M.step = i; save(true); go('#/meeting/'+M.id+'/'+i); }
+
+function meetingView(){
+  const step = MSTEPS[mStep];
+  const mName = MONTHS[monthOf(M.date)-1];
+  const stepBtns = MSTEPS.map((s,i)=>`<button class="step ${i===mStep?'on':''} ${i<mStep||(i<4&&stepHas(i))?'done':''}" onclick="setStep(${i})" ${i===mStep?'aria-current="step"':''}><b>${s.name}</b><span>${s.min?s.min+' min':'Last step'}</span></button>`).join('');
+  const body = [stepOpen, stepBack, stepData, stepClose, ()=>''][mStep]();
+  if (mStep===4) { M.status = 'complete'; save(true); return go('#/form/'+M.id); }
+  app.innerHTML = `${sampleBanner()}
+    <div class="pagehead"><div><div class="kicker">${esc(mName)} data review · ${fmtDate(M.date)}</div><h1>${step.name}</h1><p class="lede">${step.sub}</p></div>
+      <div class="timer noprint" aria-label="Segment timer"><span class="clock" id="clock">0:00</span><span class="bar"><i id="tbar"></i></span><span class="small muted">of ${step.min} min</span><button class="btn ghost sm" id="tbtn" onclick="toggleTimer(${step.min})">Start timer</button></div></div>
+    <div class="steps noprint" role="list">${stepBtns}</div>
+    ${body}
+    <div class="footnav noprint">
+      <div class="btnrow">${mStep>0?`<button class="btn ghost" onclick="setStep(${mStep-1})">← ${MSTEPS[mStep-1].name}</button>`:`<a class="btn ghost" href="#/">← Home</a>`}<span class="saved" id="saved">Saved</span></div>
+      <button class="btn primary" onclick="setStep(${mStep+1})">${mStep===3?'Finish and build the form answers →':'Next: '+MSTEPS[mStep+1].name+' →'}</button>
+    </div>`;
+  bindInputs();
+}
+function stepHas(i){
+  if (i===0) return !!(M.roles.facilitator||M.roles.participants);
+  if (i===1) return !!M.backNotes || (previousMeeting(M)||{actions:[]}).actions.some(a=>a.status&&a.status!=='open');
+  if (i===2) return M.datasets.some(d=>d.observe);
+  if (i===3) return !!(M.plus||M.delta||M.bring);
+  return false;
+}
+// Generic two-way binding: data-b="path.to.value" on any input in the meeting view.
+function getPath(o, p){ return p.split('.').reduce((x,k)=>x==null?x:x[k], o); }
+function setPath(o, p, v){ const ks=p.split('.'); const last=ks.pop(); const t=ks.reduce((x,k)=>x[k], o); t[last]=v; }
+function bindInputs(){
+  app.querySelectorAll('[data-b]').forEach(el => {
+    const v = getPath(M, el.dataset.b); if (v!=null && el.type!=='checkbox') el.value = v;
+    el.addEventListener('input', () => { setPath(M, el.dataset.b, el.value); save(); if (el.dataset.re) refreshPhasePills(); });
+    el.addEventListener('change', () => { setPath(M, el.dataset.b, el.value); save(); });
+  });
+}
+function insertStarter(id, text){
+  const el = document.getElementById(id); if(!el) return;
+  const pre = el.value && !/\s$/.test(el.value) ? '\n' : '';
+  el.value += pre + text.replace('…',' '); el.focus(); el.dispatchEvent(new Event('input'));
+}
+
+function stepOpen(){
+  const prev = previousMeeting(M);
+  return `<div class="split"><div class="card">
+    <h2>Roles and check-in</h2><p class="muted small">5 min check-in · 2 min norms · 3 min objectives</p>
+    <div class="fgrid">
+      <div><label class="f" for="r-date">Meeting date</label><input class="in" type="date" id="r-date" data-b="date"></div>
+      <div><label class="f" for="r-fac">Facilitator</label><input class="in" id="r-fac" data-b="roles.facilitator"></div>
+      <div><label class="f" for="r-time">Timekeeper</label><input class="in" id="r-time" data-b="roles.timekeeper"></div>
+      <div><label class="f" for="r-note">Note taker</label><input class="in" id="r-note" data-b="roles.noteTaker"></div>
+    </div>
+    <label class="f" for="r-part">Who is here? <small>Names or roles. This becomes the form’s participant answer.</small></label>
+    <input class="in" id="r-part" data-b="roles.participants" placeholder="Principal, instructional coach, Grade 3 lead, social worker…">
+    <label class="f" for="r-check">Check-in notes <small>Optional</small></label>
+    <textarea class="in" id="r-check" data-b="checkin" style="min-height:70px"></textarea>
+    <label class="f">Objectives for this meeting</label>
+    <ol style="margin:4px 0 0 0;padding-left:22px">${M.objectives.map((o,i)=>`<li style="margin-bottom:6px"><input class="in" data-b="objectives.${i}" aria-label="Objective ${i+1}"></li>`).join('')}</ol>
+  </div>
+  <aside class="card"><h3>Our norms</h3><div class="norms" style="margin-top:10px">${NORMS.map(n=>`<span>${n}</span>`).join('')}</div>
+    <p class="small muted" style="margin-top:14px">Read them aloud and ask which one the team wants to practice today.</p>
+    ${prev?`<div class="note" style="margin-top:12px"><b>Last meeting:</b> ${fmtDate(prev.date)}. ${(prev.actions||[]).filter(a=>a.what).length} next steps to review in Look back.</div>`:`<div class="note warm" style="margin-top:12px">This is your first meeting on the workboard. Use Look back to review building and district goals.</div>`}
+  </aside></div>`;
+}
+
+function stepBack(){
+  const prev = previousMeeting(M);
+  const acts = prev ? (prev.actions||[]).filter(a=>a.what) : [];
+  const park = openParking();
+  return `<div class="split"><div class="card">
+    <h2>${prev?'Last meeting’s next steps':'Building and district goals'}</h2>
+    ${prev ? (acts.length ? `<p class="muted small">From ${fmtDate(prev.date)}. Update the status of each one together.</p>
+      ${acts.map(a=>`<div class="arow"><div class="what" style="font-weight:700;color:var(--deep)">${esc(a.what)}</div><div class="meta">${a.who?`<b>${esc(a.who)}</b>`:'No owner'}${a.when?' · '+esc(a.when):''}${a.success?' · Success looks like: '+esc(a.success):''}</div>
+        <div class="chips" style="margin-top:10px" role="group" aria-label="Status">${['open','progress','done','dropped'].map(s=>`<button class="chip ${ (a.status||'open')===s?'on':''}" onclick="setPrevStatus('${prev.id}','${a.id}','${s}')">${STATUS_TXT[s]}</button>`).join('')}</div></div>`).join('')}`
+      : `<div class="empty" style="margin-top:10px">No next steps were recorded last time.</div>`)
+      : `<p class="muted">Review your building goals and the district goals your work connects to before you look at data.</p>`}
+    <label class="f" for="b-notes">Notes, concerns, or outstanding tasks</label>
+    <textarea class="in" id="b-notes" data-b="backNotes"></textarea>
+    ${prev && prev.bring ? `<div class="note" style="margin-top:14px"><b>Last time you planned to bring:</b> ${esc(prev.bring)}</div>`:''}
+  </div>
+  <aside class="card"><div class="cardhead"><h3>Parking lot<span class="count">${park.length}</span></h3><a class="btn quiet sm" href="#/parking">Open</a></div>
+    ${park.length?`<ul class="list">${park.slice(0,5).map(k=>`<li><div style="font-weight:650;color:var(--deep);font-size:16px">${esc(k.q)}</div><div class="meta">${esc(k.owner||'No owner')}</div></li>`).join('')}</ul>`:`<div class="empty">Nothing parked yet.</div>`}
+  </aside></div>`;
+}
+function setPrevStatus(mid, aid, s){
+  const m = findM(mid); const a = m.actions.find(x=>x.id===aid); a.status = s; save(true);
+  if (s==='done' && a.priorityId && findP(a.priorityId)) findP(a.priorityId).history.push({date:M.date, text:'Done: '+a.what});
+  save(true); meetingView();
+}
+
+function stepData(){
+  const mo = monthOf(M.date);
+  const sugg = (CAL[mo]||[]).filter(d => !M.datasets.some(x=>x.name===d[1]));
+  if (dsIdx >= M.datasets.length) dsIdx = Math.max(0, M.datasets.length-1);
+  const picker = `<div class="card" style="margin-bottom:16px"><div class="cardhead"><h3>${M.datasets.length?'Add another data set':'Choose your first data set'}</h3><span class="small muted">Aim for 2–3. Run the protocol for each one.</span></div>
+    ${sugg.length?`<p class="small muted" style="margin:0 0 8px">Suggested for ${MONTHS[mo-1]}:</p><div class="chips">${sugg.map(d=>`<button class="chip" onclick="addDataset('${d[0]}')">+ ${esc(d[1])}</button>`).join('')}</div>`:''}
+    <div class="btnrow" style="margin-top:12px"><input class="in" id="ds-other" placeholder="Other data, such as HMH weekly assessment or scholar survey" style="flex:1;min-width:220px"><button class="btn ghost" onclick="addDataset()">Add</button></div></div>`;
+  if (!M.datasets.length) return picker;
+  const d = M.datasets[dsIdx];
+  const P = PROTOCOL[phase];
+  const tabs = `<div class="dstabs" role="tablist">${M.datasets.map((x,i)=>`<button class="dstab ${i===dsIdx?'on':''}" role="tab" aria-selected="${i===dsIdx}" onclick="dsIdx=${i};phase='focus';meetingView()">${i+1}. ${esc(x.name)}</button>`).join('')}</div>`;
+  const pills = `<div class="phases" id="phase-pills">${Object.keys(PROTOCOL).map(k=>`<button class="phase ${k===phase?'on':''} ${d[k]?'has':''}" onclick="phase='${k}';meetingView()"><b>${PROTOCOL[k].name}</b><span>${k==='observe'||k==='explain'?'5–7':k==='focus'?'3':'2–3'} min</span></button>`).join('')}</div>`;
+  const myActions = M.actions.map((a,i)=>[a,i]).filter(([a])=>a.ds===dsIdx);
+  const field = `<label class="f" for="ph-${phase}">${P.ask}</label>
+    <div class="starters">${P.starters.map(s=>`<button class="starter" onclick="insertStarter('ph-${phase}','${s.replace(/'/g,"\\'")}')">${s}</button>`).join('')}</div>
+    <textarea class="in tall" id="ph-${phase}" data-b="datasets.${dsIdx}.${phase}" data-re="1"></textarea>
+    ${P.avoid?`<p class="avoid">${P.avoid}</p>`:''}`;
+  const planExtra = phase!=='plan' ? '' : `
+    <h3 style="margin-top:22px">Action steps from this data set</h3>
+    <p class="small muted">Each one needs an owner and a time. These go straight into the form and onto the home page.</p>
+    ${myActions.map(([a,i])=>actionEditor(i)).join('')}
+    <div class="btnrow" style="margin-top:12px"><button class="btn ghost" onclick="addAction(${dsIdx})">+ Add an action step</button>
+    <button class="btn quiet" onclick="quickPark(${dsIdx})">Park a question instead</button></div>`;
+  const pOpts = activeP().map(p=>`<option value="${p.id}" ${String(d.priorityId)===String(p.id)?'selected':''}>${esc(p.title)}</option>`).join('');
+  const calItem = (CAL[mo]||[]).find(x=>x[1]===d.name);
+  return `${tabs}
+  <div class="split"><div class="card">
+    <div class="fgrid">
+      <div><label class="f" for="ds-name">Data set</label><input class="in" id="ds-name" data-b="datasets.${dsIdx}.name"></div>
+      <div><label class="f" for="ds-group">Scholar group(s) considered</label><input class="in" id="ds-group" data-b="datasets.${dsIdx}.group" placeholder="Whole school, Grade 9, English learners…"></div>
+    </div>
+    <label class="f" for="ds-pri">Connect to a priority <small>Optional. Keeps this conversation in that priority’s history.</small></label>
+    <select class="in" id="ds-pri" onchange="linkDataset(this.value)"><option value="">Not connected</option>${pOpts}<option value="__new">+ Make this a new priority…</option></select>
+    <div style="height:18px"></div>
+    ${pills}
+    ${field}
+    ${planExtra}
+    <div class="btnrow" style="margin-top:18px;justify-content:space-between">
+      <button class="btn danger sm" onclick="removeDataset()">Remove this data set</button>
+      ${phase!=='plan'?`<button class="btn primary" onclick="phase='${nextPhase(phase)}';meetingView()">Next: ${PROTOCOL[nextPhase(phase)].name} →</button>`
+       : dsIdx<M.datasets.length-1 ? `<button class="btn primary" onclick="dsIdx++;phase='focus';meetingView()">Next data set →</button>` : ''}
+    </div>
+  </div>
+  <aside>
+    ${calItem?`<div class="card"><h3>About this data</h3><dl class="kv" style="margin-top:10px;grid-template-columns:1fr"><dt>Where it lives</dt><dd>${esc(calItem[2])}</dd><dt>Who can help</dt><dd>${esc(calItem[3])}</dd><dt>Look for</dt><dd>${esc(calItem[4])}</dd></dl></div>`:''}
+    <div class="card"><h3>How this works</h3><p class="small" style="margin-top:8px">Run all four steps for one data set, then move to the next. After the last one, summarize what you learned in Close.</p>
+      <p class="small muted">Protocol: <a href="${LINKS.process}" target="_blank" rel="noopener">GRPS Data Conversation Process</a></p></div>
+    ${picker}
+  </aside></div>`;
+}
+function nextPhase(p){ const k=Object.keys(PROTOCOL); return k[Math.min(k.length-1, k.indexOf(p)+1)]; }
+function refreshPhasePills(){
+  const d = M.datasets[dsIdx]; if(!d) return;
+  document.querySelectorAll('#phase-pills .phase').forEach((b,i)=> b.classList.toggle('has', !!d[Object.keys(PROTOCOL)[i]]));
+}
+function addDataset(id){
+  let name, group='';
+  if (id) { const c = (CAL[monthOf(M.date)]||[]).find(x=>x[0]===id); name = c[1]; }
+  else { name = $('#ds-other').value.trim(); if(!name){ toast('Type the name of the data set.'); $('#ds-other').focus(); return; } }
+  M.datasets.push({name, group, priorityId:'', focus:'', observe:'', explain:'', plan:''});
+  dsIdx = M.datasets.length-1; phase='focus'; save(true); meetingView();
+}
+function removeDataset(){
+  if (!confirm('Remove this data set and its notes?')) return;
+  M.actions = M.actions.filter(a=>a.ds!==dsIdx).map(a=> (a.ds>dsIdx? Object.assign(a,{ds:a.ds-1}) : a));
+  M.datasets.splice(dsIdx,1); dsIdx = Math.max(0, dsIdx-1); phase='focus'; save(true); meetingView();
+}
+function linkDataset(v){
+  const d = M.datasets[dsIdx];
+  if (v==='__new') {
+    const title = prompt('Name the new priority (for example, Grade 9 first-hour attendance):', d.name);
+    if (!title) { meetingView(); return; }
+    const p = normP({id:uid(), title:title.trim(), issue:d.focus||'', stage:'focus', history:[{date:M.date, text:'Started from a data conversation on '+d.name}]});
+    S.priorities.push(p); v = p.id; toast('Priority created.');
+  }
+  d.priorityId = v; M.actions.filter(a=>a.ds===dsIdx).forEach(a=>a.priorityId=v); save(true); meetingView();
+}
+function actionEditor(i){
+  return `<div class="arow"><div class="fgrid">
+    <div style="grid-column:1/-1"><label class="f" for="a${i}w">What will we do?</label><input class="in" id="a${i}w" data-b="actions.${i}.what"></div>
+    <div><label class="f" for="a${i}o">Who is responsible?</label><input class="in" id="a${i}o" data-b="actions.${i}.who"></div>
+    <div><label class="f" for="a${i}t">By when?</label><input class="in" id="a${i}t" data-b="actions.${i}.when" placeholder="By Dec. 5, weekly, before next meeting…"></div>
+    <div><label class="f" for="a${i}m">How will we monitor progress?</label><input class="in" id="a${i}m" data-b="actions.${i}.monitor"></div>
+    <div><label class="f" for="a${i}s">What will success look like?</label><input class="in" id="a${i}s" data-b="actions.${i}.success"></div>
+  </div><button class="btn quiet sm" style="margin-top:8px" onclick="removeAction(${i})">Remove</button></div>`;
+}
+function addAction(ds){
+  const d = ds!=null ? M.datasets[ds] : null;
+  M.actions.push({id:uid(), ds: ds!=null?ds:-1, what:'', who:'', when:'', monitor:'', success:'', priorityId: d ? d.priorityId||'' : '', status:'open'});
+  save(true); meetingView();
+  const ins = app.querySelectorAll('.arow input'); const last = [...ins].filter(x=>/w$/.test(x.id)).pop(); if (last) last.focus();
+}
+function removeAction(i){ M.actions.splice(i,1); save(true); meetingView(); }
+
+function stepClose(){
+  const acts = M.actions.map((a,i)=>[a,i]);
+  return `<div class="split"><div>
+    <div class="card"><h2>Next steps</h2><p class="muted small">Make sure every action is clear, owned, and time-bound. Think about who needs to hear about this, what research is needed, and how the team will hold itself accountable.</p>
+      ${acts.length? acts.map(([a,i])=>actionEditor(i)).join('') : `<div class="empty" style="margin-top:10px">No action steps yet. Add them here or in the Plan step of a data set.</div>`}
+      <button class="btn ghost" style="margin-top:12px" onclick="addAction(null)">+ Add an action step</button></div>
+    <div class="card">
+      <label class="f" for="c-bring" style="margin-top:0">What should we bring to or revisit at our next meeting?</label>
+      <textarea class="in" id="c-bring" data-b="bring" placeholder="Data, evidence, or information to monitor progress or answer a question"></textarea>
+      <label class="f" for="c-support">What additional data or support would help? <small>A&E and your CAIL read this.</small></label>
+      <textarea class="in" id="c-support" data-b="support"></textarea>
+      <label class="f" for="c-notes">Discussion notes, wonderings, or other context</label>
+      <textarea class="in" id="c-notes" data-b="notes"></textarea>
+    </div></div>
+  <aside class="card"><h3>Plus / Delta</h3><p class="small muted">5 minutes</p>
+    <label class="f" for="c-plus">➕ What worked well</label><textarea class="in" id="c-plus" data-b="plus" style="min-height:80px"></textarea>
+    <label class="f" for="c-delta">△ What to change next time</label><textarea class="in" id="c-delta" data-b="delta" style="min-height:80px"></textarea>
+  </aside></div>`;
+}
+
+/* Timer */
+let tState = null;
+function toggleTimer(min){
+  if (!tState) { tState = {start:Date.now(), acc:0, min, run:true}; tick(); tState.iv = setInterval(tick, 1000); }
+  else if (tState.run) { tState.acc += Date.now()-tState.start; tState.run=false; clearInterval(tState.iv); }
+  else { tState.start = Date.now(); tState.run=true; tState.iv = setInterval(tick, 1000); }
+  const b=$('#tbtn'); if(b) b.textContent = tState.run ? 'Pause' : 'Resume';
+}
+function tick(){
+  if(!tState) return;
+  const ms = tState.acc + (tState.run ? Date.now()-tState.start : 0), s = Math.floor(ms/1000);
+  const c=$('#clock'), bar=$('#tbar'); if(!c) return stopTimer();
+  c.textContent = Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+  const over = s > tState.min*60; c.classList.toggle('over', over);
+  bar.style.width = Math.min(100, s/(tState.min*60)*100)+'%'; bar.classList.toggle('over', over);
+}
+function stopTimer(){ if (tState){ clearInterval(tState.iv); tState=null; } }
+
+/* ===================== SUMMARY + FORM ===================== */
+function formAnswers(m){
+  const ds = m.datasets.filter(d=>d.name);
+  const acts = m.actions.filter(a=>a.what);
+  const per = (key) => ds.filter(d=>d[key]).map(d => ds.length>1 ? `${d.name}: ${d[key].trim()}` : d[key].trim()).join('\n\n');
+  const list = (key) => acts.length>1 ? acts.filter(a=>a[key]).map((a,i)=>`${acts.indexOf(a)+1}. ${a[key]}`).join('\n') : (acts[0]&&acts[0][key])||'';
+  const roles = [m.roles.facilitator&&'Facilitator: '+m.roles.facilitator, m.roles.timekeeper&&'Timekeeper: '+m.roles.timekeeper, m.roles.noteTaker&&'Note taker: '+m.roles.noteTaker].filter(Boolean).join('; ');
+  const notes = [m.notes, m.backNotes && 'Look back: '+m.backNotes, (m.plus||m.delta) && `Plus: ${m.plus||'—'} / Delta: ${m.delta||'—'}`].filter(Boolean).join('\n\n');
+  return [
+    ['Building', S.school],
+    ['CAIL', S.cail],
+    ['Date of the data review', fmtDate(m.date)],
+    ['Month', MONTHS[monthOf(m.date)-1]],
+    ['Who participated', [m.roles.participants, roles].filter(Boolean).join('\n')],
+    ['What data sets were used', ds.map(d=>d.name).join('; ')],
+    ['What student group(s) were considered', ds.filter(d=>d.group).map(d=> ds.length>1 ? `${d.name}: ${d.group}` : d.group).join('; ')],
+    ['Focus: what was the focus or problem examined?', per('focus')],
+    ['Observe: what did you notice in the data?', per('observe')],
+    ['Explain: what might explain what we are seeing?', per('explain')],
+    ['What are the next steps or actions?', acts.length ? list('what') : per('plan')],
+    ['Who is responsible for the next steps?', list('who')],
+    ['When will the next steps occur?', list('when')],
+    ['How will you monitor progress?', list('monitor')],
+    ['What will success look like?', list('success')],
+    ['What should we bring to or revisit at our next meeting?', m.bring],
+    ['Discussion notes, wonderings, additional context', notes],
+    ['What additional data or support would help?', m.support]
+  ];
+}
+function summaryView(id, formFirst){
+  const m = findM(id); if(!m) return go('#/');
+  const ans = formAnswers(m);
+  const blanks = ans.filter(a=>!String(a[1]||'').trim()).length;
+  const all = ans.map(a=>`${a[0]}\n${a[1]||''}`).join('\n\n');
+  window._allAnswers = all; window._ans = ans;
+  const mName = MONTHS[monthOf(m.date)-1];
+  app.innerHTML = `${sampleBanner()}
+  <div class="pagehead"><div><div class="kicker">${esc(S.school||'Your building')} · ${mName} data review</div><h1>${formFirst?'Submit the monthly form':'Meeting summary'}</h1>
+    <p class="lede">${formFirst?'Your answers are written in the same order as the Monthly Data Review Cycle Form. Copy each one into the form, or copy everything at once.':fmtDate(m.date)+' · '+esc(m.roles.participants||'')}</p></div>
+    <div class="btnrow noprint"><a class="btn ghost" href="#/meeting/${m.id}/3">Edit meeting</a><button class="btn ghost" onclick="window.print()">Print</button></div></div>
+  <div class="split"><div class="card">
+    <div class="cardhead"><h2>Form answers</h2>${blanks?`<span class="pill warn">${blanks} blank</span>`:`<span class="pill ok">All answered</span>`}</div>
+    ${ans.map((a,i)=>`<div class="q"><div class="qn">${i+1}. ${esc(a[0])}</div><div class="qa ${a[1]?'':'blank'}">${a[1]?esc(a[1]):'Not answered yet'}</div>${a[1]?`<button class="btn ghost sm noprint" onclick="copyText(window._ans[${i}][1])">Copy</button>`:''}</div>`).join('')}
+  </div>
+  <aside class="noprint">
+    <div class="card"><h3>Send it to your CAIL</h3>
+      <ol style="padding-left:20px;margin:10px 0 14px;font-size:16px"><li>Open the form.</li><li>Copy each answer into the matching question.</li><li>Submit, then mark it submitted here.</li></ol>
+      <div class="grid"><a class="btn warm" href="${FORM_URL}" target="_blank" rel="noopener">Open the monthly form ↗</a>
+      <button class="btn ghost" onclick="copyText(window._allAnswers)">Copy all answers</button>
+      <button class="btn ${m.formSubmitted?'ghost':'primary'}" onclick="markSubmitted('${m.id}')">${m.formSubmitted?'✓ Submitted. Undo':'Mark as submitted'}</button></div>
+      <p class="small muted" style="margin-top:12px">CAILs ask for at least one submission each month. Addie Collins and Peter in A&E review submissions and share them with CAILs.</p>
+      ${!S.school||!S.cail?`<div class="note warm small" style="margin-top:10px">Add your building and CAIL in <a href="#/settings">Settings</a> so they fill in automatically.</div>`:''}
+    </div>
+    <div class="card"><h3>Next steps created</h3>${m.actions.filter(a=>a.what).length?`<ul class="list" style="margin-top:8px">${m.actions.filter(a=>a.what).map(a=>actionItem({...a,_m:m.id})).join('')}</ul>`:`<div class="empty" style="margin-top:8px">None recorded.</div>`}</div>
+    <div class="card"><a class="btn ghost" href="#/">Back to home</a></div>
+  </aside></div>`;
+}
+function markSubmitted(id){
+  const m = findM(id); m.formSubmitted = !m.formSubmitted; m.status='complete'; save(true);
+  if (m.formSubmitted) {
+    // Record the conversation in each connected priority's history once.
+    m.datasets.filter(d=>d.priorityId && findP(d.priorityId)).forEach(d => {
+      const p = findP(d.priorityId), text = `Data review: ${d.name}` + (d.observe?` — ${d.observe.slice(0,140)}${d.observe.length>140?'…':''}`:'');
+      if (!p.history.some(h=>h.text===text)) p.history.push({date:m.date, text});
+    });
+    save(true);
+  }
+  toast(m.formSubmitted ? 'Marked as submitted.' : 'Marked as not submitted.'); route();
+}
+
+/* ===================== PRIORITIES ===================== */
+function prioritiesView(){
+  const groups = [['active','Active'],['paused','Paused'],['closed','Finished']];
+  app.innerHTML = `${sampleBanner()}<div class="pagehead"><div><div class="kicker">Across months</div><h1>Our priorities</h1>
+    <p class="lede">The questions your team keeps working on. Each one holds its data conversations, next steps, and history.</p></div>
+    <button class="btn primary" onclick="newPriority()">+ New priority</button></div>
+    ${groups.map(([k,l])=>{ const ps=S.priorities.filter(p=>p.status===k); return (k==='active'||ps.length)?`<section class="card"><div class="cardhead"><h2>${l}<span class="count">${ps.length}</span></h2></div>${ps.length?ps.map(priorityRow).join(''):`<div class="empty">No ${l.toLowerCase()} priorities.${S.meetings.length||S.priorities.length?'':` <button class="btn quiet sm" onclick="loadSample()">Explore with sample work</button>`}</div>`}</section>`:''; }).join('')}`;
+}
+function newPriority(){
+  modal(`<h2>New priority</h2><p class="muted">Start with what your team is noticing. You don’t need a perfect question yet.</p>
+    <label class="f" for="np-t">Short name</label><input class="in" id="np-t" placeholder="Grade 9 first-hour attendance">
+    <label class="f" for="np-q">What do you want to understand or improve?</label><textarea class="in" id="np-q" placeholder="Why are more Grade 9 scholars missing first hour, and are the same scholars falling behind in English?"></textarea>
+    <label class="f">Which areas might be connected?</label><div class="chips" id="np-a">${['Academics','Attendance','Behavior / PBIS+','Climate / belonging','Scholar or family experience'].map(a=>`<button class="chip" type="button" onclick="this.classList.toggle('on')">${a}</button>`).join('')}</div>
+    <div class="btnrow" style="margin-top:20px;justify-content:flex-end"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveNewPriority()">Create</button></div>`);
+  setTimeout(()=>{const e=$('#np-t');if(e)e.focus()},50);
+}
+function saveNewPriority(){
+  const t = $('#np-t').value.trim(); if(!t){ toast('Give the priority a short name.'); return; }
+  const p = normP({id:uid(), title:t, issue:$('#np-q').value.trim(), areas:[...document.querySelectorAll('#np-a .chip.on')].map(b=>b.textContent), stage:'focus', history:[{date:todayISO(), text:'Priority started'}]});
+  S.priorities.push(p); save(true); closeModal(); go('#/priority/'+p.id);
+}
+function priorityView(id){
+  const p = findP(id); if(!p) return go('#/priorities');
+  const si = stageIndex(p.stage);
+  const convos = S.meetings.flatMap(m => m.datasets.filter(d=>String(d.priorityId)===String(p.id)).map(d=>Object.assign({}, d, {_m:m})) ).sort((a,b)=>(b._m.date||'').localeCompare(a._m.date||''));
+  const acts = allActions().filter(a=>String(a.priorityId)===String(p.id));
+  const hist = [...p.history].reverse();
+  app.innerHTML = `${sampleBanner()}<a class="crumb" href="#/priorities">← All priorities</a>
+  <div class="pagehead"><div style="flex:1;min-width:260px"><div class="kicker">${p.status!=='active'?`<span class="pill">${p.status==='paused'?'Paused':'Finished'}</span> `:''}${p.areas.map(esc).join(' · ')||'Priority'}</div><h1>${esc(p.title)}</h1>
+    ${p.issue?`<p class="lede"><b style="color:var(--deep)">Our question:</b> ${esc(p.issue)}</p>`:''}</div>
+    <div class="btnrow"><button class="btn ghost" onclick="editPriority('${p.id}')">Edit</button>${p.status==='active'?`<button class="btn ghost" onclick="pausePriority('${p.id}')">Pause or finish</button>`:`<button class="btn ghost" onclick="reopenPriority('${p.id}')">Reopen</button>`}</div></div>
+  <div class="card" style="margin-bottom:16px"><div class="cardhead"><h3>Where we are</h3><span class="small muted">${STAGES[si][2]}</span></div>
+    <div class="track" role="group" aria-label="Stage">${STAGES.map((s,i)=>`<button class="${i<si?'done':''} ${i===si?'on':''}" onclick="setStage('${p.id}','${s[0]}')" aria-pressed="${i===si}">${s[1]}</button>`).join('')}</div></div>
+  <div class="split"><div>
+    <div class="card"><h2>What we know so far</h2><p style="margin-top:10px">${esc(p.know)||'<span class="muted">Nothing recorded yet.</span>'}</p>
+      ${p.since?`<div class="note" style="margin-top:12px"><b>Most recent:</b> ${esc(p.since)}</div>`:''}
+      <div class="note warm" style="margin-top:10px"><b>Next:</b> ${esc(p.next||'Decide a next step together.')}</div>
+      ${Object.keys(p.evidence||{}).length?`<h3 style="margin-top:20px">Evidence by area</h3><dl class="kv" style="margin-top:10px">${Object.entries(p.evidence).map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl>`:''}
+    </div>
+    <div class="card"><div class="cardhead"><h2>Open questions<span class="count">${p.questions.length}</span></h2><button class="btn ghost sm" onclick="addQuestion('${p.id}')">+ Add</button></div>
+      ${p.questions.length?`<ul class="list">${p.questions.map((q,i)=>`<li style="display:flex;justify-content:space-between;gap:10px"><span>${esc(q)}</span><button class="btn quiet sm" onclick="resolveQuestion('${p.id}',${i})">Resolved</button></li>`).join('')}</ul>`:`<div class="empty">No open questions.</div>`}</div>
+    <div class="card"><div class="cardhead"><h2>Data conversations<span class="count">${convos.length}</span></h2></div>
+      ${convos.length?convos.map(c=>`<div class="arow"><div class="meta"><b>${fmtDate(c._m.date)}</b> · ${esc(c.name)}${c.group?' · '+esc(c.group):''}</div>
+        ${c.observe?`<p style="margin:8px 0 0"><b style="color:var(--deep)">Observed:</b> ${esc(c.observe)}</p>`:''}${c.explain?`<p style="margin:6px 0 0"><b style="color:var(--deep)">Possible explanations:</b> ${esc(c.explain)}</p>`:''}</div>`).join('')
+        :`<div class="empty">When a data set is connected to this priority during a meeting, the conversation appears here.</div>`}</div>
+    ${p.tried.length?`<div class="card"><h2>What we’ve tried</h2><div style="overflow-x:auto"><table class="t" style="margin-top:10px"><thead><tr><th>Response</th><th>Who</th><th>Implementation</th><th>What we learned</th></tr></thead><tbody>${p.tried.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`:''}
+  </div>
+  <aside>
+    <div class="card"><div class="cardhead"><h3>Next steps<span class="count">${acts.filter(a=>a.status!=='done'&&a.status!=='dropped').length}</span></h3></div>
+      ${acts.length?`<ul class="list">${acts.map(actionItem).join('')}</ul>`:`<div class="empty">Action steps from meetings connected to this priority show up here.</div>`}</div>
+    <div class="card"><div class="cardhead"><h3>History</h3><button class="btn quiet sm" onclick="addHistory('${p.id}')">+ Note</button></div>
+      ${hist.length?`<ul class="timeline">${hist.map(h=>`<li><b>${h.date?fmtDate(h.date):esc(h.label||'')}</b>${esc(h.text)}</li>`).join('')}</ul>`:`<div class="empty">No history yet.</div>`}</div>
+  </aside></div>`;
+}
+function setStage(id, s){ const p=findP(id); if(p.stage===s) return; p.stage=s; p.history.push({date:todayISO(), text:'Moved to '+STAGES[stageIndex(s)][1]}); save(true); route(); }
+function editPriority(id){
+  const p = findP(id);
+  modal(`<h2>Edit priority</h2>
+    <label class="f" for="ep-t">Short name</label><input class="in" id="ep-t" value="${esc(p.title)}">
+    <label class="f" for="ep-q">Our question</label><textarea class="in" id="ep-q">${esc(p.issue)}</textarea>
+    <label class="f" for="ep-k">What we know so far</label><textarea class="in" id="ep-k">${esc(p.know)}</textarea>
+    <label class="f" for="ep-s">Most recent update</label><textarea class="in" id="ep-s" style="min-height:70px">${esc(p.since)}</textarea>
+    <label class="f" for="ep-n">Next</label><input class="in" id="ep-n" value="${esc(p.next)}">
+    <div class="btnrow" style="margin-top:20px;justify-content:flex-end"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveEditPriority('${p.id}')">Save</button></div>`);
+}
+function saveEditPriority(id){
+  const p=findP(id); const was=p.since;
+  p.title=$('#ep-t').value.trim()||p.title; p.issue=$('#ep-q').value.trim(); p.know=$('#ep-k').value.trim(); p.since=$('#ep-s').value.trim(); p.next=$('#ep-n').value.trim();
+  if (p.since && p.since!==was) p.history.push({date:todayISO(), text:p.since});
+  save(true); closeModal(); route();
+}
+function pausePriority(id){
+  modal(`<h2>Pause or finish this priority?</h2><p class="muted">History stays. You can reopen it any time.</p>
+    <div class="chips" id="pp-c" style="margin:10px 0"><button class="chip on" onclick="pick(this)" data-v="paused">Pause</button><button class="chip" onclick="pick(this)" data-v="closed">Finish</button></div>
+    <label class="f" for="pp-r">Why? <small>What evidence supports this, or what would bring it back?</small></label><textarea class="in" id="pp-r"></textarea>
+    <div class="btnrow" style="margin-top:20px;justify-content:flex-end"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="savePause('${id}')">Save</button></div>`);
+}
+function pick(b){ b.parentNode.querySelectorAll('.chip').forEach(x=>x.classList.remove('on')); b.classList.add('on'); }
+function savePause(id){
+  const p=findP(id), v=$('#pp-c .chip.on').dataset.v, r=$('#pp-r').value.trim();
+  p.status=v; p.history.push({date:todayISO(), text:(v==='paused'?'Paused':'Finished')+(r?': '+r:'')}); save(true); closeModal(); route();
+}
+function reopenPriority(id){ const p=findP(id); p.status='active'; p.history.push({date:todayISO(), text:'Reopened'}); save(true); route(); }
+function addQuestion(id){ const q=prompt('What question is still open?'); if(q&&q.trim()){ findP(id).questions.push(q.trim()); save(true); route(); } }
+function resolveQuestion(id,i){ const p=findP(id); const ans=prompt('What did you learn? (optional)'); if(ans===null) return; p.history.push({date:todayISO(), text:'Answered: '+p.questions[i]+(ans.trim()?' — '+ans.trim():'')}); p.questions.splice(i,1); save(true); route(); }
+function addHistory(id){ const t=prompt('Add a note to this priority’s history:'); if(t&&t.trim()){ findP(id).history.push({date:todayISO(), text:t.trim()}); save(true); route(); } }
+
+/* ===================== PARKING LOT ===================== */
+function parkingView(){
+  const open = openParking(), done = S.parking.filter(k=>k.status==='answered');
+  app.innerHTML = `${sampleBanner()}<div class="pagehead"><div><div class="kicker">Action Step Parking Lot</div><h1>Questions to come back to</h1>
+    <p class="lede">Add questions, data needs, and wonderings during or between meetings. Some won’t have next steps or answers yet. The goal is curiosity, communication, and collaboration.</p></div>
+    <button class="btn primary" onclick="quickPark()">+ Add a question</button></div>
+  <div class="split"><section class="card"><div class="cardhead"><h2>Open<span class="count">${open.length}</span></h2></div>
+    ${open.length?open.map(parkItem).join(''):`<div class="empty">Nothing parked. Example: “Can we see M-STEP data for our economically disadvantaged scholars?” Owner: Principal. Next step: ask A&E.</div>`}</section>
+  <aside class="card"><div class="cardhead"><h3>Answered<span class="count">${done.length}</span></h3></div>
+    ${done.length?`<ul class="list">${done.map(k=>`<li><div style="font-weight:650;color:var(--deep)">${esc(k.q)}</div><div class="small" style="margin-top:4px">${esc(k.answer)}</div><button class="btn quiet sm" onclick="reopenPark('${k.id}')">Reopen</button></li>`).join('')}</ul>`:`<div class="empty">Answers you record appear here, so the team can see what it learned.</div>`}</aside></div>`;
+}
+function parkItem(k){
+  return `<div class="plot"><div class="qtext">${esc(k.q)}</div>
+    <div class="meta" style="margin-top:4px">${k.owner?`<b>${esc(k.owner)}</b>`:'No owner yet'} · ${esc(k.next||'No next step yet')} · added ${shortDate(k.created)}</div>
+    <details><summary>Update or answer</summary>
+      <div class="fgrid"><div><label class="f" for="po-${k.id}">Who owns it?</label><input class="in" id="po-${k.id}" value="${esc(k.owner)}"></div>
+      <div><label class="f" for="pn-${k.id}">Next step</label><input class="in" id="pn-${k.id}" value="${esc(k.next)}"></div></div>
+      <label class="f" for="pa-${k.id}">Answer <small>What did we find out?</small></label><textarea class="in" id="pa-${k.id}" style="min-height:70px">${esc(k.answer)}</textarea>
+      <div class="btnrow" style="margin-top:10px"><button class="btn ghost sm" onclick="savePark('${k.id}')">Save</button><button class="btn primary sm" onclick="savePark('${k.id}',true)">Save as answered</button><button class="btn quiet sm" onclick="deletePark('${k.id}')">Delete</button></div>
+    </details></div>`;
+}
+function quickPark(ds){
+  modal(`<h2>Park a question</h2><p class="muted">A question, data need, or wondering. It doesn’t need an answer today.</p>
+    <label class="f" for="qp-q">Question</label><textarea class="in" id="qp-q" style="min-height:80px"></textarea>
+    <div class="fgrid"><div><label class="f" for="qp-o">Who owns it?</label><input class="in" id="qp-o" placeholder="Name or Whole team"></div>
+    <div><label class="f" for="qp-n">Next step</label><input class="in" id="qp-n" placeholder="Ask A&E, find research…"></div></div>
+    <div class="btnrow" style="margin-top:20px;justify-content:flex-end"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveQuickPark(${ds==null?'null':ds})">Add</button></div>`);
+  setTimeout(()=>{const e=$('#qp-q');if(e)e.focus()},50);
+}
+function saveQuickPark(ds){
+  const q=$('#qp-q').value.trim(); if(!q){ toast('Type the question first.'); return; }
+  S.parking.push({id:uid(), q, owner:$('#qp-o').value.trim(), next:$('#qp-n').value.trim(), answer:'', status:'open', created:todayISO(), meetingId: M&&ds!=null?M.id:''});
+  save(true); closeModal(); toast('Added to the parking lot.'); if (!location.hash.startsWith('#/meeting')) route();
+}
+function savePark(id, answered){
+  const k=S.parking.find(x=>x.id===id); k.owner=$('#po-'+id).value.trim(); k.next=$('#pn-'+id).value.trim(); k.answer=$('#pa-'+id).value.trim();
+  if (answered){ if(!k.answer){ toast('Add the answer first.'); return; } k.status='answered'; }
+  save(true); toast(answered?'Marked answered.':'Saved.'); route();
+}
+function reopenPark(id){ S.parking.find(x=>x.id===id).status='open'; save(true); route(); }
+function deletePark(id){ if(!confirm('Delete this question?')) return; S.parking=S.parking.filter(x=>x.id!==id); save(true); route(); }
+
+/* ===================== DATA CALENDAR ===================== */
+let calMonth = null;
+function dataView(m){
+  const now = new Date().getMonth()+1;
+  calMonth = +m || calMonth || now;
+  const order = [8,9,10,11,12,1,2,3,4,5,6];
+  const items = CAL[calMonth]||[];
+  app.innerHTML = `${sampleBanner()}<div class="pagehead"><div><div class="kicker">GRPS Data Conversation Calendar</div><h1>What data can we use in ${MONTHS[calMonth-1]}?</h1>
+    <p class="lede">Start with your team’s question, then pick only the 2–3 data sets that help answer it.</p></div></div>
+  <div class="months" role="tablist">${order.map(i=>`<button role="tab" aria-selected="${i===calMonth}" class="${i===calMonth?'on':''} ${i===now?'now':''}" onclick="go('#/data/${i}')">${MONTHS[i-1].slice(0,3)}${i===now?' · now':''}</button>`).join('')}</div>
+  <section class="card">${items.length?items.map(d=>`<div class="ds"><div><h3>${esc(d[1])}</h3><p class="small" style="margin:4px 0 0">${esc(d[4])}</p></div>
+      <div><div class="lbl">Where it lives</div><div class="small">${esc(d[2])}</div></div><div><div class="lbl">Who can help</div><div class="small">${esc(d[3])}</div></div></div>`).join('')
+    :`<div class="empty">No monthly cycle in July. Use this time to plan August’s first meeting.</div>`}</section>
+  <section class="card"><h2>Data platforms</h2><div class="links" style="margin-top:12px">${PLATFORMS.map(p=>`<a class="linkcard" href="${p[2]}" target="_blank" rel="noopener"><b>${p[0]}</b><span>${p[1]}</span></a>`).join('')}</div></section>
+  <section class="card"><div class="cardhead"><h2>When assessment data arrive</h2><span class="small muted">Approximate. Confirm with A&E.</span></div>
+    <div class="rel" style="font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)"><span>Assessment</span><span>Testing window</span><span>Data available</span></div>
+    ${RELEASES.map(r=>`<div class="rel"><span><b>${r[0]}</b><br><span class="muted">${r[3]}</span></span><span>${r[1]}</span><span>${r[2]}</span></div>`).join('')}
+    <p class="small muted" style="margin-top:12px">Sources: <a href="${LINKS.calendar}" target="_blank" rel="noopener">Data Conversation Calendar</a> · <a href="${LINKS.assess}" target="_blank" rel="noopener">Assessment Data Calendar</a></p></section>`;
+}
+
+/* ===================== RESOURCES ===================== */
+function resourcesView(){
+  const groups = [
+    ['Run the monthly cycle',[
+      ['Monthly Data Review Cycle Form','Submit at least one each month (November–June).',FORM_URL],
+      ['Data Conversation Process','The Focus → Observe → Explain → Plan protocol (adapted from NWEA).',LINKS.process],
+      ['Rolling Agenda','The original 90-minute agenda, one page per month.',LINKS.agenda],
+      ['Action Step Parking Lot (Google Doc)','The original shared parking lot document.',LINKS.parking]]],
+    ['Find the data',[
+      ['Data Conversation Calendar','Which data to discuss each month and who can help.',LINKS.calendar],
+      ['Assessment Data Calendar','Testing windows and when results are released.',LINKS.assess],
+      ['Data Platform Links','MI School Data, Our School Data, MEIS, and Synergy.',LINKS.platforms]]],
+    ['Plan the response',[
+      ['Restorative Practices Action Planning Tool','Plan restorative practices aligned with PBIS+ and MTSS.',LINKS.rp],
+      ['Scholar Perception Survey Action Planning Tool','Turn survey findings into system-level action.',LINKS.survey],
+      ['Academic MTSS guidance','District guidance for academic tiers of support.',LINKS.mtss],
+      ['All action planning resources','The shared folder of planning tools.',LINKS.actionFolder]]]
+  ];
+  app.innerHTML = `${sampleBanner()}<div class="pagehead"><div><div class="kicker">GRPS resources</div><h1>Resources</h1><p class="lede">The original district documents behind this workboard. They open in Google Drive.</p></div>
+    <a class="btn ghost" href="${LINKS.folder}" target="_blank" rel="noopener">Open the shared folder ↗</a></div>
+    ${groups.map(g=>`<section class="card"><h2>${g[0]}</h2><div class="links" style="margin-top:12px">${g[1].map(r=>`<a class="linkcard" href="${r[2]}" target="_blank" rel="noopener"><b>${esc(r[0])}</b><span>${esc(r[1])}</span></a>`).join('')}</div></section>`).join('')}
+    <section class="card"><h2>Who to contact</h2><dl class="kv" style="margin-top:12px">
+      <dt>A&E</dt><dd>Addie Collins and Peter: data review cycles, form submissions, School Index, M-STEP, College Board, and EL growth reports</dd>
+      <dt>NWEA MAP</dt><dd>Steve Petros</dd>
+      <dt>Attendance & behavior</dt><dd>Matt Kaindl · SEL Department · Mel Atkins</dd>
+      <dt>Graduation rates</dt><dd>SDS Department</dd>
+      <dt>Your CAIL</dt><dd>${esc(S.cail||'Kelly Greene, Maleika Brown, or Mayda Gunnell')}</dd></dl></section>`;
+}
+
+/* ===================== SETTINGS ===================== */
+function settingsView(){
+  app.innerHTML = `<div class="pagehead"><div><div class="kicker">Settings</div><h1>Your workboard</h1><p class="lede">Your work is saved in this browser on this device. To use it on another device or share it with your team, save a copy and open it there.</p></div></div>
+  <div class="grid g2">
+    <section class="card"><h2>Building and team</h2>
+      <label class="f" for="st-s">Building</label><input class="in" id="st-s" value="${esc(S.school)}">
+      <label class="f" for="st-c">CAIL</label><input class="in" id="st-c" list="cail-list2" value="${esc(S.cail)}"><datalist id="cail-list2">${CAILS.map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
+      <label class="f" for="st-t">Team name</label><input class="in" id="st-t" value="${esc(S.team)}">
+      <button class="btn primary" style="margin-top:16px" onclick="S.school=$('#st-s').value.trim();S.cail=$('#st-c').value.trim();S.team=$('#st-t').value.trim();save(true);toast('Saved.');route()">Save</button></section>
+    <section class="card"><h2>Save a copy</h2><p class="muted">Download your work as a file. Keep it in your team’s Drive folder, or open it on another device.</p>
+      <div class="grid" style="margin-top:12px"><button class="btn primary" onclick="exportData()">Download a copy</button>
+      <label class="btn ghost" style="cursor:pointer">Open a saved copy<input type="file" accept=".json,application/json" onchange="importData(event)" class="sr"></label></div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:20px 0">
+      <h3>Start over</h3><p class="small muted">Download a copy first. This clears everything in this browser.</p>
+      <div class="btnrow"><button class="btn danger sm" onclick="if(confirm('Clear all workboard data in this browser?')){S=blank();save(true);go('#/')}">Clear everything</button>
+      <button class="btn quiet sm" onclick="if(!S.priorities.length&&!S.meetings.length||confirm('Replace your work with sample work?')) loadSample()">Load sample work</button></div></section>
+  </div>`;
+}
+function exportData(){
+  const blob = new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = ((S.school||'GRPS')+' Team Workboard '+todayISO()).replace(/[^a-z0-9 -]+/gi,'').replace(/\s+/g,'_')+'.json';
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),800); toast('Copy downloaded.');
+}
+function importData(e){
+  const f = e.target.files && e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = () => { try { const x = JSON.parse(r.result);
+      if (x && x.version===2) S = normalize(x); else if (x && Array.isArray(x.priorities)) S = migrate(x); else throw 0;
+      save(true); toast('Saved copy opened.'); go('#/'); } catch(err){ toast('That file isn’t a Team Workboard copy.'); } };
+  r.readAsText(f);
+}
+
+/* --- Modal --- */
+function modal(html){
+  $('#modal').innerHTML = `<div class="modal" onclick="if(event.target===this)closeModal()"><div class="box" role="dialog" aria-modal="true">${html}</div></div>`;
+  document.addEventListener('keydown', escClose);
+}
+function escClose(e){ if(e.key==='Escape') closeModal(); }
+function closeModal(){ $('#modal').innerHTML=''; document.removeEventListener('keydown', escClose); }
+
+/* --- Start --- */
+S = load(); save(true);
+route();
+</script>
+</body>
+</html>
